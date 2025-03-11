@@ -8,6 +8,7 @@ abstract class CharacterDatabaseModel with _$CharacterDatabaseModel{
   const factory CharacterDatabaseModel({
     required final int id,
     final String? name,
+    final bool? favorite,
     final String? status,
     final String? species,
     final String? type,

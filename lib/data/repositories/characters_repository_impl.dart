@@ -1,8 +1,9 @@
+import 'package:rick_demo_project/data/mappers/api_to_domain_mapper.dart';
+import 'package:rick_demo_project/data/mappers/domain_to_database_mapper.dart';
 import 'package:rick_demo_project/data/services/database/database_service.dart';
 import 'package:rick_demo_project/data/services/network/network_service.dart';
 import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/domain/repositories/characters_repository.dart';
-import 'package:rick_demo_project/presentation/mapper/domain_to_view_mapper.dart';
 
 class CharactersRepositoryImpl implements CharactersRepository{
   final NetworkService _networkService;
@@ -11,25 +12,24 @@ class CharactersRepositoryImpl implements CharactersRepository{
   CharactersRepositoryImpl({required NetworkService networkService, required DatabaseService databaseService}) : _networkService = networkService, _databaseService = databaseService;
 
   @override
-  Future<void> addCharacterToFavorites(CharacterModel character) {
-    throw UnimplementedError();
+  Future<void> addCharacterToFavorites(CharacterModel character) async {
+    await _databaseService.addCharacterToFavorites(character.toDatabaseModel());
   }
 
   @override
-  Future<List<CharacterModel>> getCharacters() async{
-    final apiCharacters = await _networkService.getCharacters();
-    throw UnimplementedError();
+  Future<List<CharacterModel>> getCharacters() async {
+    final characters = await _networkService.getCharacters();
+    return characters.map((character) => character.toCharacterModel()).toList();
   }
 
   @override
-  Future<List<CharacterModel>> getFavoriteCharacters() {
-    // TODO: implement getFavoriteCharacters
-    throw UnimplementedError();
+  Future<List<CharacterModel>> getFavoriteCharacters() async {
+    final favoriteDbCharacters = await _databaseService.getFavoriteCharacters();
+    return favoriteDbCharacters.map((character) => character.toModel()).toList();
   }
 
   @override
-  Future<void> removeCharacterFromFavorites(CharacterModel character) {
-    // TODO: implement removeCharacterFromFavorites
-    throw UnimplementedError();
+  Future<void> removeCharacterFromFavorites(CharacterModel character) async {
+    await _databaseService.removeCharacterFromFavorites(character.toDatabaseModel());
   }
 }

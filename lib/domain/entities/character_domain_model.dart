@@ -8,7 +8,7 @@ abstract class CharacterModel with _$CharacterModel{
   const factory CharacterModel({
     required final int id,
     final String? name,
-    final bool? isFavorite,
+    bool? favorite,
     final String? status,
     final String? species,
     final String? type,

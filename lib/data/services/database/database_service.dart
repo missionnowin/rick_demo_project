@@ -16,7 +16,6 @@ class DatabaseServiceImpl implements DatabaseService{
   @override
   Future<void> addCharacterToFavorites(CharacterDatabaseModel character) async{
     final db = _databaseClient.database;
-
   }
 
   @override
@@ -27,7 +26,6 @@ class DatabaseServiceImpl implements DatabaseService{
 
   @override
   Future<void> removeCharacterFromFavorites(CharacterDatabaseModel character) async{
-    // TODO: implement removeCharacterFromFavorites
-    throw UnimplementedError();
+
   }
 }
