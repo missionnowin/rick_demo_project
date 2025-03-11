@@ -10,14 +10,14 @@ import 'package:rick_demo_project/presentation/models/character_presentation_mod
 part 'characters_event.dart';
 part 'characters_state.dart';
 
-class FavoriteCharactersBloc extends Bloc<CharactersEvent, CharactersState> {
+class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
   final GetCharacters _getCharacters;
   final AddCharacterToFavorite _addCharacterToFavorite;
   final RemoveCharacterFromFavorite _removeCharacterFromFavorite;
 
   List<CharacterModel> _characters = [];
 
-  FavoriteCharactersBloc({
+  CharactersBloc({
     required GetCharacters getCharacters,
     required AddCharacterToFavorite addCharacterToFavorite,
     required RemoveCharacterFromFavorite removeCharacterFromFavorite}) :

@@ -8,8 +8,8 @@ class DatabaseClient {
   late final Database _database;
   Database get database => _database;
 
-  DatabaseClient() {
-    _initDatabase().then((db) => _database = db);
+  Future<void> initialize() async {
+    _database = await _initDatabase();
   }
 
   Future<Database> _initDatabase() async {
@@ -28,7 +28,7 @@ class DatabaseClient {
       CREATE TABLE characters (
         id INTEGER PRIMARY KEY,
         name TEXT,
-        isFavorite INTEGER,
+        favorite INTEGER,
         status TEXT,
         species TEXT,
         type TEXT,
