@@ -9,8 +9,9 @@ final class CharactersLoading extends CharactersState {}
 
 class CharactersLoaded extends CharactersState {
   final List<CharacterPresentationModel> favoriteCharacters;
+  final bool canLoadMore;
 
-  CharactersLoaded(this.favoriteCharacters);
+  CharactersLoaded(this.favoriteCharacters, this.canLoadMore);
 }
 
 class CharactersError extends CharactersState {
@@ -19,8 +20,13 @@ class CharactersError extends CharactersState {
   CharactersError({required this.message});
 }
 
-class CharactersAddFavoriteError extends CharactersLoaded{
+class CharactersLoadedError extends CharactersLoaded {
   final String message;
 
-  CharactersAddFavoriteError(super.favoriteCharacters, this.message);
+  CharactersLoadedError(super.favoriteCharacters, super.canLoadMore, this.message);
+
+}
+
+class CharactersLoadingMore extends CharactersLoaded {
+  CharactersLoadingMore(super.favoriteCharacters, super.canLoadMore);
 }

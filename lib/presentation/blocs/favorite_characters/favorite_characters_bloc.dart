@@ -6,15 +6,19 @@ import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/domain/usecases/add_character_to_favorite.dart';
 import 'package:rick_demo_project/domain/usecases/get_favorite_characters.dart';
 import 'package:rick_demo_project/domain/usecases/remove_character_from_favorite.dart';
+import 'package:rick_demo_project/presentation/blocs/characters/characters_bloc.dart';
 import 'package:rick_demo_project/presentation/event_bus/character_event.dart';
 import 'package:rick_demo_project/presentation/event_bus/character_event_bus.dart';
-import 'package:rick_demo_project/presentation/mapper/domain_to_view_mapper.dart';
+import 'package:rick_demo_project/presentation/mapper/character_mapper.dart';
 import 'package:rick_demo_project/presentation/models/character_presentation_model.dart';
 
 part 'favorite_characters_event.dart';
 part 'favorite_characters_state.dart';
 
 class FavoriteCharactersBloc extends Bloc<FavoriteCharactersEvent, FavoriteCharactersState> {
+  int page = 1;
+  final int limit = 20;
+
   late final StreamSubscription otherBlocSubscription;
   final GetFavoriteCharacters _getFavoriteCharacters;
   final RemoveCharacterFromFavorite _removeCharacterFromFavorite;
@@ -34,41 +38,70 @@ class FavoriteCharactersBloc extends Bloc<FavoriteCharactersEvent, FavoriteChara
     super(FavoriteCharactersInitial()) {
     on<FetchFavoriteCharactersEvent>(_onFetch);
     on<RemoveCharacterFromFavoriteEvent>(_onRemove);
-    on<UpdateFavorites>(_onUpdate);
+    on<UpdateFavoritesEvent>(_onUpdate);
+    on<LoadMoreFavoriteCharactersEvent>(_onLoadMore);
 
     _eventSubscription = _eventBus.on<FavoritesChanged>().listen((event) {
-      add(UpdateFavorites(event.data));
+      add(UpdateFavoritesEvent(event.data));
     });
   }
 
   Future<void> _onFetch(FetchFavoriteCharactersEvent event, Emitter<FavoriteCharactersState> emit) async{
     emit(FavoriteCharactersLoading());
     try{
+      page = 1;
       _characters = await _getFavoriteCharacters.call();
-      emit(FavoriteCharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList()));
+      emit(FavoriteCharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList(), true));
     }catch(e){
-      emit(FavoriteCharactersEditError(_characters.map((character) => character.toPresentationModel()).toList(), 'Something went wrong: $e'));
+      emit(FavoriteCharactersError('Something went wrong: $e'));
     }
   }
 
   Future<void> _onRemove(RemoveCharacterFromFavoriteEvent event, Emitter<FavoriteCharactersState> emit) async {
-    try{
-      final domainCharacter = _characters.firstWhere((c) => c.id == event.character.id);
-      final updatedCharacter = await _removeCharacterFromFavorite.call(domainCharacter);
-      _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
-    }catch(e){
-      emit(FavoriteCharactersEditError(_characters.map((character) => character.toPresentationModel()).toList(), 'Something went wrong: $e'));
+    if(state is FavoriteCharactersLoaded){
+      final charState = state as FavoriteCharactersLoaded;
+      try{
+        final domainCharacter = _characters.firstWhere((c) => c.id == event.character.id);
+        final updatedCharacter = await _removeCharacterFromFavorite.call(domainCharacter);
+        _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
+      }catch(e){
+        emit(FavoriteCharactersLoadedError(charState.favoriteCharacters, charState.canLoadMore,'Something went wrong: $e'));
+      }
     }
   }
 
-  Future<void> _onUpdate(UpdateFavorites event, Emitter<FavoriteCharactersState> emit) async {
+  Future<void> _onUpdate(UpdateFavoritesEvent event, Emitter<FavoriteCharactersState> emit) async {
     int index = _characters.indexWhere((character) => character.id == event.character.id);
     if(index != -1) {
       _characters.removeAt(index);
     }else{
       _characters.add(event.character);
     }
-    emit(FavoriteCharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList()));
+    emit(FavoriteCharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList(), true));
+  }
+
+  Future<void> _onLoadMore(LoadMoreFavoriteCharactersEvent event, Emitter<FavoriteCharactersState> emit) async {
+    if(state is FavoriteCharactersLoaded && state is! FavoriteCharactersLoadingMore) {
+      final charState = state as FavoriteCharactersLoaded;
+      if(charState.canLoadMore){
+        try {
+          emit(FavoriteCharactersLoadingMore(charState.favoriteCharacters, true));
+          final newCharacters = await _getFavoriteCharacters.call(
+              page: ++page, limit: limit);
+          if (newCharacters.isNotEmpty) {
+            _characters.addAll(newCharacters);
+            emit(FavoriteCharactersLoaded(
+                _characters
+                    .map((character) => character.toPresentationModel())
+                    .toList(), true));
+          } else {
+            emit(FavoriteCharactersLoaded(charState.favoriteCharacters, false));
+          }
+        } catch (e) {
+          emit(FavoriteCharactersLoadedError(charState.favoriteCharacters, charState.canLoadMore, 'Something went wrong: $e'));
+        }
+      }
+    }
   }
 
   @override

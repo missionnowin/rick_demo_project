@@ -1,9 +1,9 @@
 import 'package:get_it/get_it.dart';
+import 'package:rick_demo_project/data/data_sources/database_client.dart';
+import 'package:rick_demo_project/data/data_sources/dio_client.dart';
 import 'package:rick_demo_project/data/repositories/characters_repository_impl.dart';
-import 'package:rick_demo_project/data/services/database/database_client.dart';
-import 'package:rick_demo_project/data/services/database/database_service.dart';
-import 'package:rick_demo_project/data/services/network/dio_client.dart';
-import 'package:rick_demo_project/data/services/network/network_service.dart';
+import 'package:rick_demo_project/data/services/characters/database/character_database_service.dart';
+import 'package:rick_demo_project/data/services/characters/network/character_network_service.dart';
 import 'package:rick_demo_project/domain/repositories/characters_repository.dart';
 import 'package:rick_demo_project/domain/usecases/add_character_to_favorite.dart';
 import 'package:rick_demo_project/domain/usecases/get_characters.dart';

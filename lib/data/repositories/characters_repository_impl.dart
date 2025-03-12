@@ -1,7 +1,8 @@
 import 'package:rick_demo_project/data/mappers/api_to_domain_mapper.dart';
 import 'package:rick_demo_project/data/mappers/domain_to_database_mapper.dart';
-import 'package:rick_demo_project/data/services/database/database_service.dart';
-import 'package:rick_demo_project/data/services/network/network_service.dart';
+import 'package:rick_demo_project/data/models/api/character_api_model.dart';
+import 'package:rick_demo_project/data/services/characters/database/character_database_service.dart';
+import 'package:rick_demo_project/data/services/characters/network/character_network_service.dart';
 import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/domain/repositories/characters_repository.dart';
 
@@ -12,24 +13,19 @@ class CharactersRepositoryImpl implements CharactersRepository{
   CharactersRepositoryImpl({required NetworkService networkService, required DatabaseService databaseService}) : _networkService = networkService, _databaseService = databaseService;
 
   @override
-  Future<List<CharacterModel>> getCharacters() async {
-    final networkCharacters = await _networkService.getCharacters();
-    final favoriteCharacters = await _databaseService.getCharacters();
-
-    ///TODO: Refactor scheme to load characters with pagination -> check one-by-one if character in local db -> change status based on this information. Also u need getCharacterMethod from repository
-
-    final updatedCharacters = networkCharacters.map((networkCharacter) {
-      final isFavorite = favoriteCharacters.any((favoriteCharacter) =>
-      favoriteCharacter.id == networkCharacter.id);
-      final mappedCharacter = networkCharacter.toCharacterModel();
-      return isFavorite ? mappedCharacter.copyWith(favorite: true) : mappedCharacter;
-    }).toList();
-
-    return updatedCharacters;
+  Future<List<CharacterModel>> getCharacters({int page = 1, int limit = 20}) async {
+    final networkCharacters = await _networkService.getCharacters(page: page, limit: limit);
+    final List<CharacterModel> domainCharacters = [];
+    for(CharacterApiModel characterApi in networkCharacters){
+      final dbCharacter = await _databaseService.getCharacterById(characterApi.id);
+      final character = characterApi.toCharacterModel(favorite: dbCharacter == null ? true : false);
+      domainCharacters.add(character);
+    }
+    return domainCharacters;
   }
 
   @override
-  Future<List<CharacterModel>> getFavoriteCharacters() async {
+  Future<List<CharacterModel>> getFavoriteCharacters({int page = 1, int limit = 20}) async {
     final favoriteDbCharacters = await _databaseService.getCharacters();
     return favoriteDbCharacters.map((character) => character.toModel()).toList();
   }

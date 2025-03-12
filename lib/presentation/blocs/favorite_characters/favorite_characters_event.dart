@@ -17,8 +17,12 @@ class RemoveCharacterFromFavoriteEvent extends FavoriteCharactersEvent {
   RemoveCharacterFromFavoriteEvent(this.character);
 }
 
-class UpdateFavorites extends FavoriteCharactersEvent {
+class UpdateFavoritesEvent extends FavoriteCharactersEvent {
   final CharacterModel character;
 
-  UpdateFavorites(this.character);
+  UpdateFavoritesEvent(this.character);
+}
+
+class LoadMoreFavoriteCharactersEvent extends FavoriteCharactersEvent {
+
 }

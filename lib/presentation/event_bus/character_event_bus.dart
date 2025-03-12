@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'character_event.dart';
+import 'event.dart';
 
 final class CharacterEventBus{
   final _favoritesStreamController = StreamController<Event>.broadcast();

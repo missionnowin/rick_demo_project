@@ -9,18 +9,24 @@ final class FavoriteCharactersLoading extends FavoriteCharactersState {}
 
 class FavoriteCharactersLoaded extends FavoriteCharactersState {
   final List<CharacterPresentationModel> favoriteCharacters;
+  final bool canLoadMore;
 
-  FavoriteCharactersLoaded(this.favoriteCharacters);
+  FavoriteCharactersLoaded(this.favoriteCharacters, this.canLoadMore);
 }
 
 class FavoriteCharactersError extends FavoriteCharactersState {
   final String message;
 
-  FavoriteCharactersError({required this.message});
+  FavoriteCharactersError(this.message);
 }
 
-class FavoriteCharactersEditError extends FavoriteCharactersLoaded{
+class FavoriteCharactersLoadedError extends FavoriteCharactersLoaded{
   final String message;
 
-  FavoriteCharactersEditError(super.favoriteCharacters, this.message);
+  FavoriteCharactersLoadedError(super.favoriteCharacters, super.canLoadMore, this.message);
+}
+
+class FavoriteCharactersLoadingMore extends FavoriteCharactersLoaded{
+
+  FavoriteCharactersLoadingMore(super.favoriteCharacters, super.canLoadMore);
 }

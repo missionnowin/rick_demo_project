@@ -3,10 +3,10 @@ import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 
 extension CharacterApiModelToDomain on CharacterApiModel{
   /// Map CharacterApiModel to CharacterModel, setting default value for favorite: false
-  CharacterModel toCharacterModel(){
+  CharacterModel toCharacterModel({bool favorite = false}){
     return CharacterModel(
       id: id,
-      favorite: false,
+      favorite: favorite,
       status: status,
       species: species,
       type : type,

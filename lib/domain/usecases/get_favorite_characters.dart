@@ -6,7 +6,7 @@ class GetFavoriteCharacters{
 
   GetFavoriteCharacters(this._repository);
 
-  Future<List<CharacterModel>> call() async {
-    return await _repository.getFavoriteCharacters();
+  Future<List<CharacterModel>> call({int page = 1, int limit = 20}) async {
+    return await _repository.getFavoriteCharacters(page: page, limit: limit);
   }
 }
