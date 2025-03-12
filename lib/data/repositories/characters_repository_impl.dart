@@ -13,8 +13,19 @@ class CharactersRepositoryImpl implements CharactersRepository{
 
   @override
   Future<List<CharacterModel>> getCharacters() async {
-    final characters = await _networkService.getCharacters();
-    return characters.map((character) => character.toCharacterModel()).toList();
+    final networkCharacters = await _networkService.getCharacters();
+    final favoriteCharacters = await _databaseService.getCharacters();
+
+    ///TODO: Refactor scheme to load characters with pagination -> check one-by-one if character in local db -> change status based on this information. Also u need getCharacterMethod from repository
+
+    final updatedCharacters = networkCharacters.map((networkCharacter) {
+      final isFavorite = favoriteCharacters.any((favoriteCharacter) =>
+      favoriteCharacter.id == networkCharacter.id);
+      final mappedCharacter = networkCharacter.toCharacterModel();
+      return isFavorite ? mappedCharacter.copyWith(favorite: true) : mappedCharacter;
+    }).toList();
+
+    return updatedCharacters;
   }
 
   @override
