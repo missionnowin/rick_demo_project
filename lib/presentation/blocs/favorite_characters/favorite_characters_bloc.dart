@@ -6,7 +6,6 @@ import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/domain/usecases/add_character_to_favorite.dart';
 import 'package:rick_demo_project/domain/usecases/get_favorite_characters.dart';
 import 'package:rick_demo_project/domain/usecases/remove_character_from_favorite.dart';
-import 'package:rick_demo_project/presentation/blocs/characters/characters_bloc.dart';
 import 'package:rick_demo_project/presentation/event_bus/character_event.dart';
 import 'package:rick_demo_project/presentation/event_bus/character_event_bus.dart';
 import 'package:rick_demo_project/presentation/mapper/character_mapper.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_demo_project/core/utils/fake_characters_list.dart';
@@ -15,50 +14,53 @@ class FavoritesPage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: BlocConsumer<FavoriteCharactersBloc, FavoriteCharactersState>(
-        listener: (context, state){
-          if(state is FavoriteCharactersLoadedError){
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(state.message)
-                )
-            );
-          }
-        },
-        builder: (context, state){
-          if(state is FavoriteCharactersLoaded){
-            return ListView.builder(
-              itemCount: state.canLoadMore ? state.favoriteCharacters.length : state.favoriteCharacters.length + 1,
-              itemBuilder: (context, index){
-                if (index >= state.favoriteCharacters.length - 1 && state.canLoadMore && !state.isLoading) {
-                  context.read<CharactersBloc>().add(LoadMoreCharactersEvent());
-                }
-                if(index >= state.favoriteCharacters.length){
-                  return Skeletonizer(child: CharacterCard(character: fakeCharactersList.first));
-                }
-                return CharacterCard(character: state.favoriteCharacters[index]);
-              },
-            );
-          }
-          if(state is FavoriteCharactersLoading){
-            return Skeletonizer(
-              child: ListView.builder(
-                itemCount: fakeCharactersList.length,
-                itemBuilder: (context, index) {
-                  return CharacterCard(character: fakeCharactersList[index]);
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: BlocConsumer<FavoriteCharactersBloc, FavoriteCharactersState>(
+          listener: (context, state){
+            if(state is FavoriteCharactersLoadedError){
+              ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text(state.message)
+                  )
+              );
+            }
+          },
+          builder: (context, state){
+            if(state is FavoriteCharactersLoaded){
+              return ListView.builder(
+                itemCount: state.canLoadMore ? state.favoriteCharacters.length : state.favoriteCharacters.length + 1,
+                itemBuilder: (context, index){
+                  if (index >= state.favoriteCharacters.length - 1 && state.canLoadMore && !state.isLoading) {
+                    context.read<CharactersBloc>().add(LoadMoreCharactersEvent());
+                  }
+                  if(index >= state.favoriteCharacters.length){
+                    return Skeletonizer(child: CharacterCard(character: fakeCharactersList.first));
+                  }
+                  return CharacterCard(character: state.favoriteCharacters[index]);
                 },
-              ),
-            );
-          }
-          if(state is FavoriteCharactersError){
-            return Center(
-              child: LoadingErrorWidget(
-                  onError: () => context.read<FavoriteCharactersBloc>().add(FetchFavoriteCharactersEvent())
-              ),
-            );
-          }
-          return Container();
-        },
+              );
+            }
+            if(state is FavoriteCharactersLoading){
+              return Skeletonizer(
+                child: ListView.builder(
+                  itemCount: fakeCharactersList.length,
+                  itemBuilder: (context, index) {
+                    return CharacterCard(character: fakeCharactersList[index]);
+                  },
+                ),
+              );
+            }
+            if(state is FavoriteCharactersError){
+              return Center(
+                child: LoadingErrorWidget(
+                    onError: () => context.read<FavoriteCharactersBloc>().add(FetchFavoriteCharactersEvent())
+                ),
+              );
+            }
+            return Container();
+          },
+        ),
       ),
     );
   }
