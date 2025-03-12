@@ -5,7 +5,10 @@ import 'package:rick_demo_project/presentation/ui/router/routes_list.dart';
 class Application extends StatelessWidget{
   Application({super.key});
 
-  final GoRouter _router = GoRouter(routes: routesList);
+  final GoRouter _router = GoRouter(
+      routes: routesList,
+      initialLocation: '/characters'
+  );
 
   @override
   Widget build(BuildContext context) {
