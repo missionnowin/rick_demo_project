@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:rick_demo_project/data/models/database/character_database_model.dart';
 import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
