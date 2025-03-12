@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_demo_project/presentation/router/routes_list.dart';
+import 'package:rick_demo_project/presentation/ui/router/routes_list.dart';
 
 class Application extends StatelessWidget{
   Application({super.key});
