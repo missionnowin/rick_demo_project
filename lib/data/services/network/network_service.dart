@@ -14,7 +14,10 @@ class NetworkServiceImpl implements NetworkService{
   @override
   Future<List<CharacterApiModel>> getCharacters() async{
     final List<CharacterApiModel> characters = [];
-    final response = await _client.dio.get('');
+    final response = await _client.dio.get('character');
+    for(Map<String, dynamic> element in response.data['results']){
+      characters.add(CharacterApiModel.fromJson(element));
+    }
     return characters;
   }
 }
