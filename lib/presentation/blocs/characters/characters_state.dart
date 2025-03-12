@@ -8,10 +8,11 @@ final class CharactersInitial extends CharactersState {}
 final class CharactersLoading extends CharactersState {}
 
 class CharactersLoaded extends CharactersState {
-  final List<CharacterPresentationModel> favoriteCharacters;
+  final List<CharacterPresentationModel> characters;
   final bool canLoadMore;
+  final bool isLoading;
 
-  CharactersLoaded(this.favoriteCharacters, this.canLoadMore);
+  CharactersLoaded({required this.characters, required this.canLoadMore, required this.isLoading});
 }
 
 class CharactersError extends CharactersState {
@@ -23,10 +24,6 @@ class CharactersError extends CharactersState {
 class CharactersLoadedError extends CharactersLoaded {
   final String message;
 
-  CharactersLoadedError(super.favoriteCharacters, super.canLoadMore, this.message);
+  CharactersLoadedError({required super.characters, required super.canLoadMore, required super.isLoading, required this.message});
 
-}
-
-class CharactersLoadingMore extends CharactersLoaded {
-  CharactersLoadingMore(super.favoriteCharacters, super.canLoadMore);
 }

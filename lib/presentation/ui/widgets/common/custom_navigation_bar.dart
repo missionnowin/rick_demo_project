@@ -35,14 +35,14 @@ class CustomNavigationBar extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 15),
                   child: SvgPicture.asset('assets/svg/home.svg'),
                 ),
-                label: '',
+                label: 'Characters',
               ),
               BottomNavigationBarItem(
                 icon: Padding(
                   padding: const EdgeInsets.only(top: 15),
-                  child: SvgPicture.asset('assets/svg/diary.svg',),
+                  child: SvgPicture.asset('assets/svg/favorites.svg',),
                 ),
-                label: '',
+                label: 'Favorites',
               ),
             ],
             currentIndex: navigationShell.currentIndex,

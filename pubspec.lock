@@ -680,6 +680,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
+  skeletonizer:
+    dependency: "direct main"
+    description:
+      name: skeletonizer
+      sha256: "0dcacc51c144af4edaf37672072156f49e47036becbc394d7c51850c5c1e884b"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.3"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -813,6 +821,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.4"
+  timer_button:
+    dependency: "direct main"
+    description:
+      name: timer_button
+      sha256: e1c3debf93a14412c83ad485f8bdb1cc347871521c544606e72c4148edc18ca3
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.1"
   timing:
     dependency: transitive
     description:

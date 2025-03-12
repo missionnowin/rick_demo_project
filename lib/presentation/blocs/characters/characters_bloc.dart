@@ -52,7 +52,11 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     try{
       page = 1;
       _characters = await _getCharacters.call();
-      emit(CharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList(), true));
+      emit(CharactersLoaded(
+          characters: _characters.map((character) => character.toPresentationModel()).toList(),
+          canLoadMore: true,
+          isLoading: false
+      ));
     }catch(e){
       emit(CharactersError(message: 'Something went wrong: $e'));
     }
@@ -70,7 +74,12 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         final updatedCharacter = await _addCharacterToFavorite.call(domainCharacter);
         _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
       }catch(e){
-        emit(CharactersLoadedError(charState.favoriteCharacters, charState.canLoadMore, 'Something went wrong: $e'));
+        emit(CharactersLoadedError(
+            characters: charState.characters,
+            canLoadMore: charState.canLoadMore,
+            message: 'Something went wrong: $e',
+            isLoading: charState.isLoading
+        ));
       }
     }
   }
@@ -87,38 +96,64 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         final updatedCharacter = await _removeCharacterFromFavorite.call(domainCharacter);
         _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
       }catch(e){
-        emit(CharactersLoadedError(charState.favoriteCharacters, charState.canLoadMore, 'Something went wrong: $e'));
+        emit(CharactersLoadedError(
+            characters: charState.characters,
+            canLoadMore: charState.canLoadMore,
+            isLoading: charState.isLoading,
+            message: 'Something went wrong: $e'
+        ));
       }
     }
   }
 
   Future<void> _onUpdate(UpdateCharactersEvent event, Emitter<CharactersState> emit) async {
     if(state is CharactersLoaded){
+      final charState = state as CharactersLoaded;
       final index = _characters.indexWhere((c) => c.id == event.character.id);
       if(index != -1){
         _characters[index] = event.character;
       }
-      emit(CharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList(), (state as CharactersLoaded).canLoadMore));
+      emit(CharactersLoaded(
+          characters: _characters.map((character) => character.toPresentationModel()).toList(),
+          canLoadMore: charState.canLoadMore,
+          isLoading: charState.isLoading
+      ));
     }
   }
 
   Future<void> _onLoadMore(LoadMoreCharactersEvent event, Emitter<CharactersState> emit) async {
-    if (state is CharactersLoaded && state is! CharactersLoadingMore) {
+    if (state is CharactersLoaded) {
       final charState = state as CharactersLoaded;
-      if(charState.canLoadMore){
+      if(charState.canLoadMore && charState.isLoading != true){
         try {
-          emit(CharactersLoadingMore(
-              charState.favoriteCharacters, charState.canLoadMore));
+          emit(CharactersLoaded(
+              characters: charState.characters,
+              canLoadMore: charState.canLoadMore,
+              isLoading: true
+          ));
           final newCharacters = await _getCharacters.call(
               page: ++page, limit: limit);
           if (newCharacters.isNotEmpty) {
             _characters.addAll(newCharacters);
-            emit(CharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList(), true));
+            emit(CharactersLoaded(
+                characters: _characters.map((character) => character.toPresentationModel()).toList(),
+                canLoadMore: true,
+                isLoading: false
+            ));
           } else {
-            emit(CharactersLoaded(charState.favoriteCharacters, false));
+            emit(CharactersLoaded(
+                characters: charState.characters,
+                canLoadMore: false,
+                isLoading: true
+            ));
           }
         } catch (e) {
-          emit(CharactersLoadedError(charState.favoriteCharacters, charState.canLoadMore, 'Something went wrong: $e'));
+          emit(CharactersLoadedError(
+              characters: charState.characters,
+              canLoadMore: charState.canLoadMore,
+              isLoading: false,
+              message: 'Something went wrong: $e'
+          ));
         }
       }
     }

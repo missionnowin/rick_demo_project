@@ -51,7 +51,11 @@ class FavoriteCharactersBloc extends Bloc<FavoriteCharactersEvent, FavoriteChara
     try{
       page = 1;
       _characters = await _getFavoriteCharacters.call();
-      emit(FavoriteCharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList(), true));
+      emit(FavoriteCharactersLoaded(
+          favoriteCharacters: _characters.map((character) => character.toPresentationModel()).toList(),
+          canLoadMore: true,
+          isLoading: false
+      ));
     }catch(e){
       emit(FavoriteCharactersError('Something went wrong: $e'));
     }
@@ -65,40 +69,66 @@ class FavoriteCharactersBloc extends Bloc<FavoriteCharactersEvent, FavoriteChara
         final updatedCharacter = await _removeCharacterFromFavorite.call(domainCharacter);
         _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
       }catch(e){
-        emit(FavoriteCharactersLoadedError(charState.favoriteCharacters, charState.canLoadMore,'Something went wrong: $e'));
+        emit(FavoriteCharactersLoadedError(
+            favoriteCharacters: charState.favoriteCharacters,
+            canLoadMore: charState.canLoadMore,
+            isLoading: charState.isLoading,
+            message: 'Something went wrong: $e'
+        ));
       }
     }
   }
 
   Future<void> _onUpdate(UpdateFavoritesEvent event, Emitter<FavoriteCharactersState> emit) async {
-    int index = _characters.indexWhere((character) => character.id == event.character.id);
-    if(index != -1) {
-      _characters.removeAt(index);
-    }else{
-      _characters.add(event.character);
+    if(state is FavoriteCharactersLoaded){
+      final charState = state as FavoriteCharactersLoaded;
+      int index = _characters.indexWhere((character) => character.id == event.character.id);
+      if(index != -1) {
+        _characters.removeAt(index);
+      }else{
+        _characters.add(event.character);
+      }
+      emit(FavoriteCharactersLoaded(
+          favoriteCharacters: _characters.map((character) => character.toPresentationModel()).toList(),
+          canLoadMore: charState.canLoadMore,
+          isLoading: charState.isLoading
+      ));
     }
-    emit(FavoriteCharactersLoaded(_characters.map((character) => character.toPresentationModel()).toList(), true));
   }
 
   Future<void> _onLoadMore(LoadMoreFavoriteCharactersEvent event, Emitter<FavoriteCharactersState> emit) async {
-    if(state is FavoriteCharactersLoaded && state is! FavoriteCharactersLoadingMore) {
+    if(state is FavoriteCharactersLoaded) {
       final charState = state as FavoriteCharactersLoaded;
-      if(charState.canLoadMore){
+      if(charState.canLoadMore && !charState.isLoading){
         try {
-          emit(FavoriteCharactersLoadingMore(charState.favoriteCharacters, true));
+          emit(FavoriteCharactersLoaded(
+              favoriteCharacters: charState.favoriteCharacters,
+              canLoadMore: charState.canLoadMore,
+              isLoading: true
+          ));
           final newCharacters = await _getFavoriteCharacters.call(
               page: ++page, limit: limit);
           if (newCharacters.isNotEmpty) {
             _characters.addAll(newCharacters);
             emit(FavoriteCharactersLoaded(
-                _characters
-                    .map((character) => character.toPresentationModel())
-                    .toList(), true));
+                favoriteCharacters: _characters.map((character) => character.toPresentationModel()).toList(),
+                canLoadMore: true,
+                isLoading: false
+            ));
           } else {
-            emit(FavoriteCharactersLoaded(charState.favoriteCharacters, false));
+            emit(FavoriteCharactersLoaded(
+                favoriteCharacters: charState.favoriteCharacters,
+                canLoadMore: false,
+                isLoading: false
+            ));
           }
         } catch (e) {
-          emit(FavoriteCharactersLoadedError(charState.favoriteCharacters, charState.canLoadMore, 'Something went wrong: $e'));
+          emit(FavoriteCharactersLoadedError(
+              favoriteCharacters: charState.favoriteCharacters,
+              canLoadMore: charState.canLoadMore,
+              isLoading: false,
+              message: 'Something went wrong: $e'
+          ));
         }
       }
     }
