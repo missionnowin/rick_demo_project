@@ -441,13 +441,8 @@ class __$CharacterApiModelCopyWithImpl<$Res>
 
 /// @nodoc
 mixin _$LocationApiModel {
-  int get id;
   String? get name;
-  String? get type;
-  String? get dimension;
-  List<String>? get residents;
   String? get url;
-  String get created;
 
   /// Create a copy of LocationApiModel
   /// with the given fields replaced by the non-null parameter values.
@@ -465,24 +460,17 @@ mixin _$LocationApiModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is LocationApiModel &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.dimension, dimension) ||
-                other.dimension == dimension) &&
-            const DeepCollectionEquality().equals(other.residents, residents) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.created, created) || other.created == created));
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, type, dimension,
-      const DeepCollectionEquality().hash(residents), url, created);
+  int get hashCode => Object.hash(runtimeType, name, url);
 
   @override
   String toString() {
-    return 'LocationApiModel(id: $id, name: $name, type: $type, dimension: $dimension, residents: $residents, url: $url, created: $created)';
+    return 'LocationApiModel(name: $name, url: $url)';
   }
 }
 
@@ -492,14 +480,7 @@ abstract mixin class $LocationApiModelCopyWith<$Res> {
           LocationApiModel value, $Res Function(LocationApiModel) _then) =
       _$LocationApiModelCopyWithImpl;
   @useResult
-  $Res call(
-      {int id,
-      String? name,
-      String? type,
-      String? dimension,
-      List<String>? residents,
-      String? url,
-      String created});
+  $Res call({String? name, String? url});
 }
 
 /// @nodoc
@@ -515,43 +496,18 @@ class _$LocationApiModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
     Object? name = freezed,
-    Object? type = freezed,
-    Object? dimension = freezed,
-    Object? residents = freezed,
     Object? url = freezed,
-    Object? created = null,
   }) {
     return _then(_self.copyWith(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       name: freezed == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      type: freezed == type
-          ? _self.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dimension: freezed == dimension
-          ? _self.dimension
-          : dimension // ignore: cast_nullable_to_non_nullable
-              as String?,
-      residents: freezed == residents
-          ? _self.residents
-          : residents // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
       url: freezed == url
           ? _self.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      created: null == created
-          ? _self.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }
@@ -559,40 +515,14 @@ class _$LocationApiModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _LocationApiModel implements LocationApiModel {
-  _LocationApiModel(
-      {required this.id,
-      required this.name,
-      required this.type,
-      required this.dimension,
-      required final List<String>? residents,
-      required this.url,
-      required this.created})
-      : _residents = residents;
+  _LocationApiModel({required this.name, required this.url});
   factory _LocationApiModel.fromJson(Map<String, dynamic> json) =>
       _$LocationApiModelFromJson(json);
 
   @override
-  final int id;
-  @override
   final String? name;
   @override
-  final String? type;
-  @override
-  final String? dimension;
-  final List<String>? _residents;
-  @override
-  List<String>? get residents {
-    final value = _residents;
-    if (value == null) return null;
-    if (_residents is EqualUnmodifiableListView) return _residents;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(value);
-  }
-
-  @override
   final String? url;
-  @override
-  final String created;
 
   /// Create a copy of LocationApiModel
   /// with the given fields replaced by the non-null parameter values.
@@ -614,25 +544,17 @@ class _LocationApiModel implements LocationApiModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _LocationApiModel &&
-            (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            (identical(other.type, type) || other.type == type) &&
-            (identical(other.dimension, dimension) ||
-                other.dimension == dimension) &&
-            const DeepCollectionEquality()
-                .equals(other._residents, _residents) &&
-            (identical(other.url, url) || other.url == url) &&
-            (identical(other.created, created) || other.created == created));
+            (identical(other.url, url) || other.url == url));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name, type, dimension,
-      const DeepCollectionEquality().hash(_residents), url, created);
+  int get hashCode => Object.hash(runtimeType, name, url);
 
   @override
   String toString() {
-    return 'LocationApiModel(id: $id, name: $name, type: $type, dimension: $dimension, residents: $residents, url: $url, created: $created)';
+    return 'LocationApiModel(name: $name, url: $url)';
   }
 }
 
@@ -644,14 +566,7 @@ abstract mixin class _$LocationApiModelCopyWith<$Res>
       __$LocationApiModelCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String? name,
-      String? type,
-      String? dimension,
-      List<String>? residents,
-      String? url,
-      String created});
+  $Res call({String? name, String? url});
 }
 
 /// @nodoc
@@ -667,43 +582,18 @@ class __$LocationApiModelCopyWithImpl<$Res>
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? id = null,
     Object? name = freezed,
-    Object? type = freezed,
-    Object? dimension = freezed,
-    Object? residents = freezed,
     Object? url = freezed,
-    Object? created = null,
   }) {
     return _then(_LocationApiModel(
-      id: null == id
-          ? _self.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
       name: freezed == name
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
-      type: freezed == type
-          ? _self.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      dimension: freezed == dimension
-          ? _self.dimension
-          : dimension // ignore: cast_nullable_to_non_nullable
-              as String?,
-      residents: freezed == residents
-          ? _self._residents
-          : residents // ignore: cast_nullable_to_non_nullable
-              as List<String>?,
       url: freezed == url
           ? _self.url
           : url // ignore: cast_nullable_to_non_nullable
               as String?,
-      created: null == created
-          ? _self.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as String,
     ));
   }
 }

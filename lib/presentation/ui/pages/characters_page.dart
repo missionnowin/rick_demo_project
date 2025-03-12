@@ -12,7 +12,6 @@ class CharactersPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BlocConsumer<CharactersBloc, CharactersState>(
@@ -36,7 +35,11 @@ class CharactersPage extends StatelessWidget{
                     if(index >= state.characters.length){
                       return Skeletonizer(child: CharacterCard(character: fakeCharactersList.first));
                     }
-                    return CharacterCard(character: state.characters[index]);
+                    return CharacterCard(
+                      character: state.characters[index],
+                      onAdd: () => context.read<CharactersBloc>().add(AddCharacterToFavoriteEvent(state.characters[index])),
+                      onRemove: () => context.read<CharactersBloc>().add(RemoveCharacterFromFavoriteEvent(state.characters[index])),
+                    );
                   },
                 );
               }

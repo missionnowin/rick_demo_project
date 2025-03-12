@@ -45,14 +45,30 @@ class CharacterCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AutoSizeText(
-                  character.name ?? 'Unknown',
-                  style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Row(
+                  children: [
+                    AutoSizeText(
+                      character.name ?? 'Unknown',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const Spacer(),
+                    GestureDetector(
+                      onTap: (){
+                        if(character.favorite == true && onAdd != null){
+                          onAdd!();
+                        }else if(onRemove != null){
+                          onRemove!();
+                        }
+                      },
+                      behavior: HitTestBehavior.opaque,
+                      child: Icon(Icons.favorite, color: character.favorite == true ? Colors.green : Colors.red),
+                    )
+                  ],
                 ),
                 const SizedBox(height: 8),
                 AutoSizeText(
@@ -78,21 +94,6 @@ class CharacterCard extends StatelessWidget {
               ],
             ),
           ),
-          GestureDetector(
-            onTap: (){
-              if(character.favorite == true && onAdd != null){
-                onAdd!();
-              }else if(onRemove != null){
-                onRemove!();
-              }
-            },
-            behavior: HitTestBehavior.opaque,
-            child: Positioned(
-              top: 8,
-              right: 8,
-              child: Icon(Icons.favorite, color: character.favorite == true ? Colors.red : Colors.green),
-            ),
-          )
         ],
       ),
     );

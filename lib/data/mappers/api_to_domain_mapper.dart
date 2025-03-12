@@ -7,6 +7,7 @@ extension CharacterApiModelToDomain on CharacterApiModel{
     return CharacterModel(
       id: id,
       favorite: favorite,
+      name: name,
       status: status,
       species: species,
       type : type,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_demo_project/core/utils/fake_characters_list.dart';
-import 'package:rick_demo_project/presentation/blocs/characters/characters_bloc.dart';
 import 'package:rick_demo_project/presentation/blocs/favorite_characters/favorite_characters_bloc.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/character_card.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/error_widget.dart';
@@ -13,7 +12,6 @@ class FavoritesPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: BlocConsumer<FavoriteCharactersBloc, FavoriteCharactersState>(
@@ -32,12 +30,15 @@ class FavoritesPage extends StatelessWidget{
                 itemCount: state.canLoadMore ? state.favoriteCharacters.length : state.favoriteCharacters.length + 1,
                 itemBuilder: (context, index){
                   if (index >= state.favoriteCharacters.length - 1 && state.canLoadMore && !state.isLoading) {
-                    context.read<CharactersBloc>().add(LoadMoreCharactersEvent());
+                    context.read<FavoriteCharactersBloc>().add(LoadMoreFavoriteCharactersEvent());
                   }
                   if(index >= state.favoriteCharacters.length){
                     return Skeletonizer(child: CharacterCard(character: fakeCharactersList.first));
                   }
-                  return CharacterCard(character: state.favoriteCharacters[index]);
+                  return CharacterCard(
+                    character: state.favoriteCharacters[index],
+                    onRemove: () => context.read<FavoriteCharactersBloc>().add(RemoveCharacterFromFavoriteEvent(state.favoriteCharacters[index])),
+                  );
                 },
               );
             }

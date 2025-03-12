@@ -25,13 +25,8 @@ abstract class CharacterApiModel with _$CharacterApiModel{
 @freezed
 abstract class LocationApiModel with _$LocationApiModel{
   factory LocationApiModel({
-    required final int id,
     required final String? name,
-    required final String? type,
-    required final String? dimension,
-    required final List<String>? residents,
     required final String? url,
-    required final String created,
   }) = _LocationApiModel;
 
   factory LocationApiModel.fromJson(Map<String, dynamic> json) => _$LocationApiModelFromJson(json);

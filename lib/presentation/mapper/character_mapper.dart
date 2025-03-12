@@ -6,6 +6,7 @@ extension DomainToViewMapper on CharacterModel{
     return CharacterPresentationModel(
         id: id,
         name: name,
+        favorite: favorite,
         image: image,
         status: status,
         species: species,

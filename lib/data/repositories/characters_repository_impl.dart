@@ -18,7 +18,7 @@ class CharactersRepositoryImpl implements CharactersRepository{
     final List<CharacterModel> domainCharacters = [];
     for(CharacterApiModel characterApi in networkCharacters){
       final dbCharacter = await _databaseService.getCharacterById(characterApi.id);
-      final character = characterApi.toCharacterModel(favorite: dbCharacter == null ? true : false);
+      final character = characterApi.toCharacterModel(favorite: dbCharacter == null ? false : true);
       domainCharacters.add(character);
     }
     return domainCharacters;

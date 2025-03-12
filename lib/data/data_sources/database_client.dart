@@ -37,7 +37,8 @@ class DatabaseClient {
         location TEXT,
         image TEXT,
         episodes TEXT,
-        created TEXT
+        created TEXT,
+        updatedAt TEXT
       )
     ''');
   }
