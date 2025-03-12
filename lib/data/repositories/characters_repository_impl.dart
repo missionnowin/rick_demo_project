@@ -12,11 +12,6 @@ class CharactersRepositoryImpl implements CharactersRepository{
   CharactersRepositoryImpl({required NetworkService networkService, required DatabaseService databaseService}) : _networkService = networkService, _databaseService = databaseService;
 
   @override
-  Future<void> addCharacterToFavorites(CharacterModel character) async {
-    await _databaseService.addCharacterToFavorites(character.toDatabaseModel());
-  }
-
-  @override
   Future<List<CharacterModel>> getCharacters() async {
     final characters = await _networkService.getCharacters();
     return characters.map((character) => character.toCharacterModel()).toList();
@@ -24,12 +19,17 @@ class CharactersRepositoryImpl implements CharactersRepository{
 
   @override
   Future<List<CharacterModel>> getFavoriteCharacters() async {
-    final favoriteDbCharacters = await _databaseService.getFavoriteCharacters();
+    final favoriteDbCharacters = await _databaseService.getCharacters();
     return favoriteDbCharacters.map((character) => character.toModel()).toList();
   }
 
   @override
-  Future<void> removeCharacterFromFavorites(CharacterModel character) async {
-    await _databaseService.removeCharacterFromFavorites(character.toDatabaseModel());
+  Future<void> removeCharacter(CharacterModel character) async {
+    await _databaseService.removeCharacter(character.toDatabaseModel());
+  }
+
+  @override
+  Future<void> saveCharacter(CharacterModel character) async {
+    await _databaseService.saveCharacter(character.toDatabaseModel());
   }
 }

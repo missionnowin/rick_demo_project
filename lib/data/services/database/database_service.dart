@@ -3,9 +3,9 @@ import 'package:rick_demo_project/data/models/database/character_database_model.
 import 'database_client.dart';
 
 abstract class DatabaseService{
-  Future<void> addCharacterToFavorites(CharacterDatabaseModel character);
-  Future<void> removeCharacterFromFavorites(CharacterDatabaseModel character);
-  Future<List<CharacterDatabaseModel>> getFavoriteCharacters();
+  Future<void> saveCharacter(CharacterDatabaseModel character);
+  Future<void> removeCharacter(CharacterDatabaseModel character);
+  Future<List<CharacterDatabaseModel>> getCharacters();
 }
 
 class DatabaseServiceImpl implements DatabaseService{
@@ -14,18 +14,18 @@ class DatabaseServiceImpl implements DatabaseService{
   DatabaseServiceImpl(this._databaseClient);
 
   @override
-  Future<void> addCharacterToFavorites(CharacterDatabaseModel character) async{
+  Future<void> saveCharacter(CharacterDatabaseModel character) async{
     final db = _databaseClient.database;
   }
 
   @override
-  Future<List<CharacterDatabaseModel>> getFavoriteCharacters() async{
+  Future<List<CharacterDatabaseModel>> getCharacters() async{
     // TODO: implement getFavoriteCharacters
     throw UnimplementedError();
   }
 
   @override
-  Future<void> removeCharacterFromFavorites(CharacterDatabaseModel character) async{
+  Future<void> removeCharacter(CharacterDatabaseModel character) async{
 
   }
 }

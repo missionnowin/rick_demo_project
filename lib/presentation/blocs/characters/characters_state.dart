@@ -18,3 +18,9 @@ class CharactersError extends CharactersState {
 
   CharactersError({required this.message});
 }
+
+class CharactersAddFavoriteError extends CharactersLoaded{
+  final String message;
+
+  CharactersAddFavoriteError(super.favoriteCharacters, this.message);
+}

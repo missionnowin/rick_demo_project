@@ -17,6 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$CharacterDatabaseModel {
   int get id;
   String? get name;
+  bool? get favorite;
   String? get status;
   String? get species;
   String? get type;
@@ -46,6 +47,8 @@ mixin _$CharacterDatabaseModel {
             other is CharacterDatabaseModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.favorite, favorite) ||
+                other.favorite == favorite) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.species, species) || other.species == species) &&
             (identical(other.type, type) || other.type == type) &&
@@ -66,6 +69,7 @@ mixin _$CharacterDatabaseModel {
       runtimeType,
       id,
       name,
+      favorite,
       status,
       species,
       type,
@@ -79,7 +83,7 @@ mixin _$CharacterDatabaseModel {
 
   @override
   String toString() {
-    return 'CharacterDatabaseModel(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created, updatedAt: $updatedAt)';
+    return 'CharacterDatabaseModel(id: $id, name: $name, favorite: $favorite, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created, updatedAt: $updatedAt)';
   }
 }
 
@@ -92,6 +96,7 @@ abstract mixin class $CharacterDatabaseModelCopyWith<$Res> {
   $Res call(
       {int id,
       String? name,
+      bool? favorite,
       String? status,
       String? species,
       String? type,
@@ -119,6 +124,7 @@ class _$CharacterDatabaseModelCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
+    Object? favorite = freezed,
     Object? status = freezed,
     Object? species = freezed,
     Object? type = freezed,
@@ -139,6 +145,10 @@ class _$CharacterDatabaseModelCopyWithImpl<$Res>
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      favorite: freezed == favorite
+          ? _self.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: freezed == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -189,6 +199,7 @@ class _CharacterDatabaseModel implements CharacterDatabaseModel {
   const _CharacterDatabaseModel(
       {required this.id,
       this.name,
+      this.favorite,
       this.status,
       this.species,
       this.type,
@@ -207,6 +218,8 @@ class _CharacterDatabaseModel implements CharacterDatabaseModel {
   final int id;
   @override
   final String? name;
+  @override
+  final bool? favorite;
   @override
   final String? status;
   @override
@@ -259,6 +272,8 @@ class _CharacterDatabaseModel implements CharacterDatabaseModel {
             other is _CharacterDatabaseModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.favorite, favorite) ||
+                other.favorite == favorite) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.species, species) || other.species == species) &&
             (identical(other.type, type) || other.type == type) &&
@@ -279,6 +294,7 @@ class _CharacterDatabaseModel implements CharacterDatabaseModel {
       runtimeType,
       id,
       name,
+      favorite,
       status,
       species,
       type,
@@ -292,7 +308,7 @@ class _CharacterDatabaseModel implements CharacterDatabaseModel {
 
   @override
   String toString() {
-    return 'CharacterDatabaseModel(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created, updatedAt: $updatedAt)';
+    return 'CharacterDatabaseModel(id: $id, name: $name, favorite: $favorite, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created, updatedAt: $updatedAt)';
   }
 }
 
@@ -307,6 +323,7 @@ abstract mixin class _$CharacterDatabaseModelCopyWith<$Res>
   $Res call(
       {int id,
       String? name,
+      bool? favorite,
       String? status,
       String? species,
       String? type,
@@ -334,6 +351,7 @@ class __$CharacterDatabaseModelCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
+    Object? favorite = freezed,
     Object? status = freezed,
     Object? species = freezed,
     Object? type = freezed,
@@ -354,6 +372,10 @@ class __$CharacterDatabaseModelCopyWithImpl<$Res>
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      favorite: freezed == favorite
+          ? _self.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: freezed == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable

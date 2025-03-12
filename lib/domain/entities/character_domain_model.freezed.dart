@@ -17,6 +17,7 @@ T _$identity<T>(T value) => value;
 mixin _$CharacterModel {
   int get id;
   String? get name;
+  bool? get favorite;
   String? get status;
   String? get species;
   String? get type;
@@ -45,6 +46,8 @@ mixin _$CharacterModel {
             other is CharacterModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.favorite, favorite) ||
+                other.favorite == favorite) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.species, species) || other.species == species) &&
             (identical(other.type, type) || other.type == type) &&
@@ -63,6 +66,7 @@ mixin _$CharacterModel {
       runtimeType,
       id,
       name,
+      favorite,
       status,
       species,
       type,
@@ -75,7 +79,7 @@ mixin _$CharacterModel {
 
   @override
   String toString() {
-    return 'CharacterModel(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created)';
+    return 'CharacterModel(id: $id, name: $name, favorite: $favorite, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created)';
   }
 }
 
@@ -88,6 +92,7 @@ abstract mixin class $CharacterModelCopyWith<$Res> {
   $Res call(
       {int id,
       String? name,
+      bool? favorite,
       String? status,
       String? species,
       String? type,
@@ -114,6 +119,7 @@ class _$CharacterModelCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
+    Object? favorite = freezed,
     Object? status = freezed,
     Object? species = freezed,
     Object? type = freezed,
@@ -133,6 +139,10 @@ class _$CharacterModelCopyWithImpl<$Res>
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      favorite: freezed == favorite
+          ? _self.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: freezed == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -179,6 +189,7 @@ class _CharacterModel implements CharacterModel {
   const _CharacterModel(
       {required this.id,
       this.name,
+      this.favorite,
       this.status,
       this.species,
       this.type,
@@ -196,6 +207,8 @@ class _CharacterModel implements CharacterModel {
   final int id;
   @override
   final String? name;
+  @override
+  final bool? favorite;
   @override
   final String? status;
   @override
@@ -245,6 +258,8 @@ class _CharacterModel implements CharacterModel {
             other is _CharacterModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.favorite, favorite) ||
+                other.favorite == favorite) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.species, species) || other.species == species) &&
             (identical(other.type, type) || other.type == type) &&
@@ -263,6 +278,7 @@ class _CharacterModel implements CharacterModel {
       runtimeType,
       id,
       name,
+      favorite,
       status,
       species,
       type,
@@ -275,7 +291,7 @@ class _CharacterModel implements CharacterModel {
 
   @override
   String toString() {
-    return 'CharacterModel(id: $id, name: $name, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created)';
+    return 'CharacterModel(id: $id, name: $name, favorite: $favorite, status: $status, species: $species, type: $type, gender: $gender, origin: $origin, location: $location, image: $image, episodes: $episodes, created: $created)';
   }
 }
 
@@ -290,6 +306,7 @@ abstract mixin class _$CharacterModelCopyWith<$Res>
   $Res call(
       {int id,
       String? name,
+      bool? favorite,
       String? status,
       String? species,
       String? type,
@@ -316,6 +333,7 @@ class __$CharacterModelCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = freezed,
+    Object? favorite = freezed,
     Object? status = freezed,
     Object? species = freezed,
     Object? type = freezed,
@@ -335,6 +353,10 @@ class __$CharacterModelCopyWithImpl<$Res>
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      favorite: freezed == favorite
+          ? _self.favorite
+          : favorite // ignore: cast_nullable_to_non_nullable
+              as bool?,
       status: freezed == status
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable

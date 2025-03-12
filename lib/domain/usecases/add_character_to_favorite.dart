@@ -6,7 +6,9 @@ class AddCharacterToFavorite{
 
   AddCharacterToFavorite(this._repository);
 
-  Future<void> call(CharacterModel character) async {
-    await _repository.addCharacterToFavorites(character);
+  Future<CharacterModel> call(CharacterModel character) async {
+    final updatedCharacter = character.copyWith(favorite: true);
+    await _repository.saveCharacter(updatedCharacter);
+    return updatedCharacter;
   }
 }

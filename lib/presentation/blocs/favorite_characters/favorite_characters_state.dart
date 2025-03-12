@@ -18,3 +18,9 @@ class FavoriteCharactersError extends FavoriteCharactersState {
 
   FavoriteCharactersError({required this.message});
 }
+
+class FavoriteCharactersEditError extends FavoriteCharactersLoaded{
+  final String message;
+
+  FavoriteCharactersEditError(super.favoriteCharacters, this.message);
+}

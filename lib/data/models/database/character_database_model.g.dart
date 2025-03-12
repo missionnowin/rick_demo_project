@@ -11,6 +11,7 @@ _CharacterDatabaseModel _$CharacterDatabaseModelFromJson(
     _CharacterDatabaseModel(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
+      favorite: json['favorite'] as bool?,
       status: json['status'] as String?,
       species: json['species'] as String?,
       type: json['type'] as String?,
@@ -30,6 +31,7 @@ Map<String, dynamic> _$CharacterDatabaseModelToJson(
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'favorite': instance.favorite,
       'status': instance.status,
       'species': instance.species,
       'type': instance.type,
