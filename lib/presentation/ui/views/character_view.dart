@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
@@ -14,13 +15,13 @@ class SingleCharacterView extends StatelessWidget{
       appBar: AppBar(
         title: Text(character.name ?? 'Unknown Character'),
         actions: onToggle != null ? [
-        IconButton(
-          icon: Icon(
-            character.favorite == true ? Icons.favorite : Icons.favorite_border,
-            color: character.favorite == true ? Colors.red : null,
+          IconButton(
+            icon: Icon(
+              character.favorite == true ? Icons.favorite : Icons.favorite_border,
+              color: character.favorite == true ? Colors.red : null,
+            ),
+            onPressed: onToggle,
           ),
-          onPressed: onToggle,
-        ),
         ] : [],
       ),
       body: SingleChildScrollView(
@@ -28,42 +29,45 @@ class SingleCharacterView extends StatelessWidget{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Character Image
             if (character.image != null)
               Center(
-                child: CircleAvatar(
-                  backgroundImage: NetworkImage(character.image!),
-                  radius: 80,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(80),
+                  child: CachedNetworkImage(
+                    imageUrl: character.image ?? 'https://via.placeholder.com/150',
+                    height: 160,
+                    width: 160,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => Container(
+                      height: 80,
+                      width: 80,
+                      color: Colors.grey[300],
+                      child: const Center(child: CircularProgressIndicator()),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      height: 80,
+                      width: 80,
+                      color: Colors.grey[300],
+                      child: const Icon(Icons.person, color: Colors.grey),
+                    ),
+                  ),
                 ),
               ),
             const SizedBox(height: 20),
 
-            // Name
             if (character.name != null)
-              Text(
-                character.name!,
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .headlineMedium,
+              Text(character.name!,
+                style: Theme.of(context).textTheme.headlineMedium,
               ),
             const SizedBox(height: 10),
 
-            // Status and Species
             if (character.status != null || character.species != null)
-              Text(
-                '${character.status ?? 'Unknown'} - ${character.species ??
-                    'Unknown'}',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .titleMedium,
+              Text('${character.status ?? 'Unknown'} - ${character.species ?? 'Unknown'}',
+                style: Theme.of(context).textTheme.titleMedium,
               ),
             const SizedBox(height: 20),
 
-            // Details Section
-            const Text(
-              'Details',
+            const Text('Details',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const Divider(),
@@ -73,7 +77,6 @@ class SingleCharacterView extends StatelessWidget{
             _buildDetailRow('Location', character.location),
             const SizedBox(height: 20),
 
-            // Episodes Section
             if (character.episodes != null && character.episodes!.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -83,21 +86,15 @@ class SingleCharacterView extends StatelessWidget{
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const Divider(),
-                  ...character.episodes!
-                      .map((episode) => Text(episode))
-                      .toList(),
+                  ...?character.episodes?.map((episode) => Text(episode)),
                 ],
               ),
             const SizedBox(height: 20),
 
             // Created Date
             if (character.created != null)
-              Text(
-                'Created: ${character.created}',
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodySmall,
+              Text('Created: ${character.created}',
+                style: Theme.of(context).textTheme.bodySmall,
               ),
           ],
         ),

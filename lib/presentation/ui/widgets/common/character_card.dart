@@ -42,7 +42,7 @@ class CharacterCard extends StatelessWidget {
                 errorWidget: (context, url, error) => Container(
                   height: 150,
                   color: Colors.grey[300],
-                  child: const Icon(Icons.error, color: Colors.red),
+                  child: const Icon(Icons.person, color: Colors.grey),
                 ),
               ),
             ),

@@ -18,26 +18,26 @@ class DioClient {
           return handler.next(response);
         },
         onError: (error, handler) async {
-          try{
-            final cachedResponse = await _getCachedResponse(error.requestOptions.uri.toString());
-            if (cachedResponse != null) {
-              return handler.resolve(Response(
-                requestOptions: error.requestOptions,
-                data: cachedResponse,
-                statusCode: 200,
-              ));
-            }
-            return handler.next(error);
-          }catch(e){
-            rethrow;
+          final cachedResponse = await _getCachedResponse(error.requestOptions.uri.toString());
+          if (cachedResponse != null) {
+            return handler.resolve(Response(
+              requestOptions: error.requestOptions,
+              data: cachedResponse,
+              statusCode: 200,
+            ));
           }
+          return handler.next(error);
         },
       ),
     );
   }
 
   Future<Map<String, dynamic>?> _getCachedResponse(String url) async {
-    return jsonDecode(_prefs.getString(url) ?? '');
+    try{
+      return jsonDecode(_prefs.getString(url)!);
+    }catch(e){
+      return null;
+    }
   }
 
   Future<void> _cacheResponse(String url, dynamic data) async {
