@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_demo_project/core/utils/fake_characters_list.dart';
 import 'package:rick_demo_project/presentation/blocs/favorite_characters/favorite_characters_bloc.dart';
+import 'package:rick_demo_project/presentation/ui/views/characters_card_list.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/character_card.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/error_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -26,24 +27,12 @@ class FavoritesPage extends StatelessWidget{
           },
           builder: (context, state){
             if(state is FavoriteCharactersLoaded){
-              return ListView.builder(
-                itemCount: state.canLoadMore && state.favoriteCharacters.isNotEmpty ? state.favoriteCharacters.length + 2 : state.favoriteCharacters.length,
-                itemBuilder: (context, index){
-                  if (index >= state.favoriteCharacters.length - 1 && state.canLoadMore && !state.isLoading) {
-                    context.read<FavoriteCharactersBloc>().add(LoadMoreFavoriteCharactersEvent());
-                  }
-                  if(index >= state.favoriteCharacters.length){
-                    if(state.isLoading){
-                      return Skeletonizer(child: CharacterCard(character: fakeCharactersList.first));
-                    }else{
-                      return Container();
-                    }
-                  }
-                  return CharacterCard(
-                    character: state.favoriteCharacters[index],
-                    onToggle: () => context.read<FavoriteCharactersBloc>().add(RemoveCharacterFromFavoriteEvent(state.favoriteCharacters[index].id)),
-                  );
-                },
+              return CharactersCardList(
+                canLoadMore: state.canLoadMore,
+                isLoading: state.isLoading,
+                characters: state.favoriteCharacters,
+                onToggleFavorite: (characterId) => context.read<FavoriteCharactersBloc>().add(RemoveCharacterFromFavoriteEvent(characterId)),
+                onLoadMore: () => context.read<FavoriteCharactersBloc>().add(LoadMoreFavoriteCharactersEvent()),
               );
             }
             if(state is FavoriteCharactersLoading){

@@ -6,9 +6,9 @@ import 'package:rick_demo_project/presentation/models/character_card_presentatio
 
 class CharacterCard extends StatelessWidget {
   final CharacterCardPresentationModel character;
-  final void Function()? onToggle;
+  final void Function()? onToggleFavorite;
 
-  const CharacterCard({super.key, required this.character, this.onToggle});
+  const CharacterCard({super.key, required this.character, this.onToggleFavorite});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class CharacterCard extends StatelessWidget {
                     const Spacer(),
                     GestureDetector(
                       onTap: (){
-                        onToggle!();
+                        onToggleFavorite!();
                       },
                       behavior: HitTestBehavior.opaque,
                       child: Icon(
