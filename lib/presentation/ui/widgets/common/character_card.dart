@@ -73,7 +73,10 @@ class CharacterCard extends StatelessWidget {
                         }
                       },
                       behavior: HitTestBehavior.opaque,
-                      child: Icon(Icons.favorite, color: character.favorite == true ? Colors.green : Colors.red),
+                      child: Icon(
+                        character.favorite == true ? Icons.star : Icons.star_border,
+                        color: character.favorite == true ? Colors.green : Colors.grey,
+                      ),
                     )
                   ],
                 ),

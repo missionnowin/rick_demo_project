@@ -17,8 +17,8 @@ class SingleCharacterView extends StatelessWidget{
         actions: onToggle != null ? [
           IconButton(
             icon: Icon(
-              character.favorite == true ? Icons.favorite : Icons.favorite_border,
-              color: character.favorite == true ? Colors.red : null,
+              character.favorite == true ? Icons.star : Icons.star_border,
+              color: character.favorite == true ? Colors.green : Colors.grey,
             ),
             onPressed: onToggle,
           ),
