@@ -13,7 +13,8 @@ class SingleCharacterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SingleCharacterBloc, SingleCharacterState>(
+    return Scaffold(
+      body: BlocConsumer<SingleCharacterBloc, SingleCharacterState>(
         listener: (context, state){
           if(state is SingleCharacterTogglingError){
             ScaffoldMessenger.of(context).showSnackBar(
@@ -38,16 +39,15 @@ class SingleCharacterPage extends StatelessWidget {
             );
           }
           if(state is SingleCharacterError){
-            return Scaffold(
-              body: Center(
-                  child: LoadingErrorWidget(
-                    onError: () => context.read<SingleCharacterBloc>().add(FetchSingleCharacterEvent(characterId)),
-                  )
-              ),
+            return Center(
+                child: LoadingErrorWidget(
+                  onError: () => context.read<SingleCharacterBloc>().add(FetchSingleCharacterEvent(characterId)),
+                )
             );
           }
-          return const Scaffold();
+          return Container();
         },
+      ),
     );
   }
 }
