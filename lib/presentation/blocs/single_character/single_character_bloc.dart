@@ -6,7 +6,6 @@ import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/domain/usecases/add_character_to_favorite.dart';
 import 'package:rick_demo_project/domain/usecases/get_character.dart';
 import 'package:rick_demo_project/domain/usecases/remove_character_from_favorite.dart';
-import 'package:rick_demo_project/presentation/blocs/favorite_characters/favorite_characters_bloc.dart';
 import 'package:rick_demo_project/presentation/event_bus/character_event.dart';
 import 'package:rick_demo_project/presentation/event_bus/character_event_bus.dart';
 
@@ -18,7 +17,6 @@ class SingleCharacterBloc extends Bloc<SingleCharacterEvent, SingleCharacterStat
   final RemoveCharacterFromFavorite _removeCharacterFromFavorite;
   final GetCharacter _getCharacter;
   final CharacterEventBus _eventBus;
-  late final StreamSubscription? _eventSubscription;
 
   SingleCharacterBloc({
     required AddCharacterToFavorite addCharacterToFavorite,
