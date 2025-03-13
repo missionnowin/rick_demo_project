@@ -4,8 +4,9 @@ import 'package:timer_button/timer_button.dart';
 
 class LoadingErrorWidget extends StatelessWidget{
   final void Function() onError;
+  final String? errorText;
 
-  const LoadingErrorWidget({super.key, required this.onError});
+  const LoadingErrorWidget({super.key, required this.onError, this.errorText});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +16,13 @@ class LoadingErrorWidget extends StatelessWidget{
             SizedBox(height: MediaQuery.of(context).size.height / 4,),
             TimerButton.builder(
                 builder: (context, time){
-                  return const AutoSizeText.rich(
+                  return AutoSizeText.rich(
                       TextSpan(
                           children:[
                             TextSpan(
-                                text: 'Произошла ошибка. ',
+                                text: 'An error occurred. ${errorText ?? ''}',
                             ),
-                            TextSpan(
+                            const TextSpan(
                                 text: 'Повторить',
                                 style: TextStyle(color: Colors.blue)
                             )
