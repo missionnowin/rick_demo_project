@@ -4,14 +4,14 @@ import 'package:rick_demo_project/presentation/models/character_card_presentatio
 import 'package:rick_demo_project/presentation/ui/widgets/common/character_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class CharactersCardList extends StatelessWidget{
+class CharactersCardListView extends StatelessWidget{
   final bool canLoadMore;
   final bool isLoading;
   final void Function() onLoadMore;
   final void Function(int characterId) onToggleFavorite;
   final List<CharacterCardPresentationModel> characters;
 
-  const CharactersCardList({super.key, required this.canLoadMore, required this.isLoading, required this.characters, required this.onToggleFavorite, required this.onLoadMore});
+  const CharactersCardListView({super.key, required this.canLoadMore, required this.isLoading, required this.characters, required this.onToggleFavorite, required this.onLoadMore});
 
   @override
   Widget build(BuildContext context) {

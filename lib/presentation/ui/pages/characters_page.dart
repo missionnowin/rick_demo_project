@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rick_demo_project/core/utils/fake_characters_list.dart';
 import 'package:rick_demo_project/presentation/blocs/characters/characters_bloc.dart';
-import 'package:rick_demo_project/presentation/ui/views/characters_card_list.dart';
+import 'package:rick_demo_project/presentation/ui/views/characters_card_list_view.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/character_card.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/error_widget.dart';
 import 'package:skeletonizer/skeletonizer.dart';
@@ -27,7 +27,7 @@ class CharactersPage extends StatelessWidget{
             },
             builder: (context, state){
               if(state is CharactersLoaded){
-                return CharactersCardList(
+                return CharactersCardListView(
                     canLoadMore: state.canLoadMore,
                     isLoading: state.isLoading,
                     characters: state.characters,
