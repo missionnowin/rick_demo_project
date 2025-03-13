@@ -6,7 +6,7 @@ sealed class FavoriteCharactersEvent {}
 class FetchFavoriteCharactersEvent extends FavoriteCharactersEvent {}
 
 class AddCharacterToFavoriteEvent extends FavoriteCharactersEvent {
-  final CharacterPresentationModel character;
+  final CharacterCardPresentationModel character;
 
   AddCharacterToFavoriteEvent(this.character);
 }

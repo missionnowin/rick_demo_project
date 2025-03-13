@@ -8,7 +8,7 @@ final class CharactersInitial extends CharactersState {}
 final class CharactersLoading extends CharactersState {}
 
 class CharactersLoaded extends CharactersState {
-  final List<CharacterPresentationModel> characters;
+  final List<CharacterCardPresentationModel> characters;
   final bool canLoadMore;
   final bool isLoading;
 

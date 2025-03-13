@@ -8,7 +8,7 @@ final class FavoriteCharactersInitial extends FavoriteCharactersState {}
 final class FavoriteCharactersLoading extends FavoriteCharactersState {}
 
 class FavoriteCharactersLoaded extends FavoriteCharactersState {
-  final List<CharacterPresentationModel> favoriteCharacters;
+  final List<CharacterCardPresentationModel> favoriteCharacters;
   final bool canLoadMore;
   final bool isLoading;
 

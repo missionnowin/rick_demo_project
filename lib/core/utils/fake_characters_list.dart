@@ -1,5 +1,5 @@
 import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
-import 'package:rick_demo_project/presentation/models/character_presentation_model.dart';
+import 'package:rick_demo_project/presentation/models/character_card_presentation_model.dart';
 
 const fakeCharacterModel = [
   CharacterModel(
@@ -14,7 +14,7 @@ const fakeCharacterModel = [
 ];
 
 const fakeCharactersList = [
-  CharacterPresentationModel(
+  CharacterCardPresentationModel(
     id: 1,
     name: 'Rick Sanchez',
     favorite: true,
@@ -23,7 +23,7 @@ const fakeCharactersList = [
     species: 'Human',
     location: 'Earth (C-137)',
   ),
-  CharacterPresentationModel(
+  CharacterCardPresentationModel(
     id: 2,
     name: 'Morty Smith',
     favorite: false,
@@ -32,7 +32,7 @@ const fakeCharactersList = [
     species: 'Human',
     location: 'Earth (C-137)',
   ),
-  CharacterPresentationModel(
+  CharacterCardPresentationModel(
     id: 3,
     name: 'Morty Smith',
     favorite: false,
@@ -41,7 +41,7 @@ const fakeCharactersList = [
     species: 'Human',
     location: 'Earth (C-137)',
   ),
-  CharacterPresentationModel(
+  CharacterCardPresentationModel(
     id: 4,
     name: 'Morty Smith',
     favorite: false,
@@ -50,7 +50,7 @@ const fakeCharactersList = [
     species: 'Human',
     location: 'Earth (C-137)',
   ),
-  CharacterPresentationModel(
+  CharacterCardPresentationModel(
     id: 5,
     name: 'Morty Smith',
     favorite: false,

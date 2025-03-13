@@ -4,7 +4,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'character_presentation_model.dart';
+part of 'character_card_presentation_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,7 +14,7 @@ part of 'character_presentation_model.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$CharacterPresentationModel {
+mixin _$CharacterCardPresentationModel {
   int get id;
   String? get name;
   bool? get favorite;
@@ -23,23 +23,23 @@ mixin _$CharacterPresentationModel {
   String? get species;
   String? get location;
 
-  /// Create a copy of CharacterPresentationModel
+  /// Create a copy of CharacterCardPresentationModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $CharacterPresentationModelCopyWith<CharacterPresentationModel>
-      get copyWith =>
-          _$CharacterPresentationModelCopyWithImpl<CharacterPresentationModel>(
-              this as CharacterPresentationModel, _$identity);
+  $CharacterCardPresentationModelCopyWith<CharacterCardPresentationModel>
+      get copyWith => _$CharacterCardPresentationModelCopyWithImpl<
+              CharacterCardPresentationModel>(
+          this as CharacterCardPresentationModel, _$identity);
 
-  /// Serializes this CharacterPresentationModel to a JSON map.
+  /// Serializes this CharacterCardPresentationModel to a JSON map.
   Map<String, dynamic> toJson();
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is CharacterPresentationModel &&
+            other is CharacterCardPresentationModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.favorite, favorite) ||
@@ -58,15 +58,16 @@ mixin _$CharacterPresentationModel {
 
   @override
   String toString() {
-    return 'CharacterPresentationModel(id: $id, name: $name, favorite: $favorite, image: $image, status: $status, species: $species, location: $location)';
+    return 'CharacterCardPresentationModel(id: $id, name: $name, favorite: $favorite, image: $image, status: $status, species: $species, location: $location)';
   }
 }
 
 /// @nodoc
-abstract mixin class $CharacterPresentationModelCopyWith<$Res> {
-  factory $CharacterPresentationModelCopyWith(CharacterPresentationModel value,
-          $Res Function(CharacterPresentationModel) _then) =
-      _$CharacterPresentationModelCopyWithImpl;
+abstract mixin class $CharacterCardPresentationModelCopyWith<$Res> {
+  factory $CharacterCardPresentationModelCopyWith(
+          CharacterCardPresentationModel value,
+          $Res Function(CharacterCardPresentationModel) _then) =
+      _$CharacterCardPresentationModelCopyWithImpl;
   @useResult
   $Res call(
       {int id,
@@ -79,14 +80,14 @@ abstract mixin class $CharacterPresentationModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$CharacterPresentationModelCopyWithImpl<$Res>
-    implements $CharacterPresentationModelCopyWith<$Res> {
-  _$CharacterPresentationModelCopyWithImpl(this._self, this._then);
+class _$CharacterCardPresentationModelCopyWithImpl<$Res>
+    implements $CharacterCardPresentationModelCopyWith<$Res> {
+  _$CharacterCardPresentationModelCopyWithImpl(this._self, this._then);
 
-  final CharacterPresentationModel _self;
-  final $Res Function(CharacterPresentationModel) _then;
+  final CharacterCardPresentationModel _self;
+  final $Res Function(CharacterCardPresentationModel) _then;
 
-  /// Create a copy of CharacterPresentationModel
+  /// Create a copy of CharacterCardPresentationModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -134,8 +135,9 @@ class _$CharacterPresentationModelCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _CharacterPresentationModel implements CharacterPresentationModel {
-  const _CharacterPresentationModel(
+class _CharacterCardPresentationModel
+    implements CharacterCardPresentationModel {
+  const _CharacterCardPresentationModel(
       {required this.id,
       this.name,
       this.favorite,
@@ -143,8 +145,8 @@ class _CharacterPresentationModel implements CharacterPresentationModel {
       this.status,
       this.species,
       this.location});
-  factory _CharacterPresentationModel.fromJson(Map<String, dynamic> json) =>
-      _$CharacterPresentationModelFromJson(json);
+  factory _CharacterCardPresentationModel.fromJson(Map<String, dynamic> json) =>
+      _$CharacterCardPresentationModelFromJson(json);
 
   @override
   final int id;
@@ -161,18 +163,18 @@ class _CharacterPresentationModel implements CharacterPresentationModel {
   @override
   final String? location;
 
-  /// Create a copy of CharacterPresentationModel
+  /// Create a copy of CharacterCardPresentationModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$CharacterPresentationModelCopyWith<_CharacterPresentationModel>
-      get copyWith => __$CharacterPresentationModelCopyWithImpl<
-          _CharacterPresentationModel>(this, _$identity);
+  _$CharacterCardPresentationModelCopyWith<_CharacterCardPresentationModel>
+      get copyWith => __$CharacterCardPresentationModelCopyWithImpl<
+          _CharacterCardPresentationModel>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$CharacterPresentationModelToJson(
+    return _$CharacterCardPresentationModelToJson(
       this,
     );
   }
@@ -181,7 +183,7 @@ class _CharacterPresentationModel implements CharacterPresentationModel {
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CharacterPresentationModel &&
+            other is _CharacterCardPresentationModel &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.favorite, favorite) ||
@@ -200,17 +202,17 @@ class _CharacterPresentationModel implements CharacterPresentationModel {
 
   @override
   String toString() {
-    return 'CharacterPresentationModel(id: $id, name: $name, favorite: $favorite, image: $image, status: $status, species: $species, location: $location)';
+    return 'CharacterCardPresentationModel(id: $id, name: $name, favorite: $favorite, image: $image, status: $status, species: $species, location: $location)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$CharacterPresentationModelCopyWith<$Res>
-    implements $CharacterPresentationModelCopyWith<$Res> {
-  factory _$CharacterPresentationModelCopyWith(
-          _CharacterPresentationModel value,
-          $Res Function(_CharacterPresentationModel) _then) =
-      __$CharacterPresentationModelCopyWithImpl;
+abstract mixin class _$CharacterCardPresentationModelCopyWith<$Res>
+    implements $CharacterCardPresentationModelCopyWith<$Res> {
+  factory _$CharacterCardPresentationModelCopyWith(
+          _CharacterCardPresentationModel value,
+          $Res Function(_CharacterCardPresentationModel) _then) =
+      __$CharacterCardPresentationModelCopyWithImpl;
   @override
   @useResult
   $Res call(
@@ -224,14 +226,14 @@ abstract mixin class _$CharacterPresentationModelCopyWith<$Res>
 }
 
 /// @nodoc
-class __$CharacterPresentationModelCopyWithImpl<$Res>
-    implements _$CharacterPresentationModelCopyWith<$Res> {
-  __$CharacterPresentationModelCopyWithImpl(this._self, this._then);
+class __$CharacterCardPresentationModelCopyWithImpl<$Res>
+    implements _$CharacterCardPresentationModelCopyWith<$Res> {
+  __$CharacterCardPresentationModelCopyWithImpl(this._self, this._then);
 
-  final _CharacterPresentationModel _self;
-  final $Res Function(_CharacterPresentationModel) _then;
+  final _CharacterCardPresentationModel _self;
+  final $Res Function(_CharacterCardPresentationModel) _then;
 
-  /// Create a copy of CharacterPresentationModel
+  /// Create a copy of CharacterCardPresentationModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
@@ -244,7 +246,7 @@ class __$CharacterPresentationModelCopyWithImpl<$Res>
     Object? species = freezed,
     Object? location = freezed,
   }) {
-    return _then(_CharacterPresentationModel(
+    return _then(_CharacterCardPresentationModel(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable

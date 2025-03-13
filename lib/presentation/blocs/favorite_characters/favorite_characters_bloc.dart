@@ -9,7 +9,7 @@ import 'package:rick_demo_project/domain/usecases/remove_character_from_favorite
 import 'package:rick_demo_project/presentation/event_bus/character_event.dart';
 import 'package:rick_demo_project/presentation/event_bus/character_event_bus.dart';
 import 'package:rick_demo_project/presentation/mapper/character_mapper.dart';
-import 'package:rick_demo_project/presentation/models/character_presentation_model.dart';
+import 'package:rick_demo_project/presentation/models/character_card_presentation_model.dart';
 
 part 'favorite_characters_event.dart';
 part 'favorite_characters_state.dart';

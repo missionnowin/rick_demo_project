@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'character_presentation_model.dart';
+part of 'character_card_presentation_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_CharacterPresentationModel _$CharacterPresentationModelFromJson(
+_CharacterCardPresentationModel _$CharacterCardPresentationModelFromJson(
         Map<String, dynamic> json) =>
-    _CharacterPresentationModel(
+    _CharacterCardPresentationModel(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String?,
       favorite: json['favorite'] as bool?,
@@ -18,8 +18,8 @@ _CharacterPresentationModel _$CharacterPresentationModelFromJson(
       location: json['location'] as String?,
     );
 
-Map<String, dynamic> _$CharacterPresentationModelToJson(
-        _CharacterPresentationModel instance) =>
+Map<String, dynamic> _$CharacterCardPresentationModelToJson(
+        _CharacterCardPresentationModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
