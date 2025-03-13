@@ -41,7 +41,7 @@ class FavoritesPage extends StatelessWidget{
                   }
                   return CharacterCard(
                     character: state.favoriteCharacters[index],
-                    onRemove: () => context.read<FavoriteCharactersBloc>().add(RemoveCharacterFromFavoriteEvent(state.favoriteCharacters[index])),
+                    onToggle: () => context.read<FavoriteCharactersBloc>().add(RemoveCharacterFromFavoriteEvent(state.favoriteCharacters[index].id)),
                   );
                 },
               );

@@ -1,8 +1,8 @@
 import 'package:rick_demo_project/data/mappers/api_to_domain_mapper.dart';
 import 'package:rick_demo_project/data/mappers/domain_to_database_mapper.dart';
 import 'package:rick_demo_project/data/models/api/character_api_model.dart';
-import 'package:rick_demo_project/data/services/characters/database/character_database_service.dart';
-import 'package:rick_demo_project/data/services/characters/network/character_network_service.dart';
+import 'package:rick_demo_project/data/services/characters/character_database_service.dart';
+import 'package:rick_demo_project/data/services/characters/character_network_service.dart';
 import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/domain/repositories/characters_repository.dart';
 

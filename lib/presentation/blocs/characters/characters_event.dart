@@ -5,16 +5,10 @@ sealed class CharactersEvent {}
 
 class FetchCharactersEvent extends CharactersEvent {}
 
-class AddCharacterToFavoriteEvent extends CharactersEvent {
-  final CharacterPresentationModel character;
+class ToggleFavoriteCharacterEvent extends CharactersEvent{
+  final int characterId;
 
-  AddCharacterToFavoriteEvent(this.character);
-}
-
-class RemoveCharacterFromFavoriteEvent extends CharactersEvent {
-  final CharacterPresentationModel character;
-
-  RemoveCharacterFromFavoriteEvent(this.character);
+  ToggleFavoriteCharacterEvent(this.characterId);
 }
 
 class UpdateCharactersEvent extends CharactersEvent {

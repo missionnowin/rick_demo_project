@@ -37,8 +37,7 @@ class CharactersPage extends StatelessWidget{
                     }
                     return CharacterCard(
                       character: state.characters[index],
-                      onAdd: () => context.read<CharactersBloc>().add(AddCharacterToFavoriteEvent(state.characters[index])),
-                      onRemove: () => context.read<CharactersBloc>().add(RemoveCharacterFromFavoriteEvent(state.characters[index])),
+                      onToggle: () => context.read<CharactersBloc>().add(ToggleFavoriteCharacterEvent(state.characters[index].id)),
                     );
                   },
                 );

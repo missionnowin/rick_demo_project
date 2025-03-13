@@ -64,7 +64,7 @@ class FavoriteCharactersBloc extends Bloc<FavoriteCharactersEvent, FavoriteChara
     if(state is FavoriteCharactersLoaded){
       final charState = state as FavoriteCharactersLoaded;
       try{
-        final domainCharacter = _characters.firstWhere((c) => c.id == event.character.id);
+        final domainCharacter = _characters.firstWhere((c) => c.id == event.characterId);
         final updatedCharacter = await _removeCharacterFromFavorite.call(domainCharacter);
         _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
       }catch(e){

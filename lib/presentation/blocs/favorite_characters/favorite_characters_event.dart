@@ -12,9 +12,9 @@ class AddCharacterToFavoriteEvent extends FavoriteCharactersEvent {
 }
 
 class RemoveCharacterFromFavoriteEvent extends FavoriteCharactersEvent {
-  final CharacterPresentationModel character;
+  final int characterId;
 
-  RemoveCharacterFromFavoriteEvent(this.character);
+  RemoveCharacterFromFavoriteEvent(this.characterId);
 }
 
 class UpdateFavoritesEvent extends FavoriteCharactersEvent {

@@ -37,8 +37,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
         _eventBus = eventBus,
         super(CharactersInitial()) {
     on<FetchCharactersEvent>(_onFetch);
-    on<AddCharacterToFavoriteEvent>(_onAdd);
-    on<RemoveCharacterFromFavoriteEvent>(_onRemove);
+    on<ToggleFavoriteCharacterEvent>(_onToggle);
     on<UpdateCharactersEvent>(_onUpdate);
     on<LoadMoreCharactersEvent>(_onLoadMore);
 
@@ -62,16 +61,16 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
     }
   }
 
-  Future<void> _onAdd(AddCharacterToFavoriteEvent event, Emitter<CharactersState> emit) async {
+  Future<void> _onToggle(ToggleFavoriteCharacterEvent event, Emitter<CharactersState> emit) async {
     if(state is CharactersLoaded){
       final charState = state as CharactersLoaded;
       try{
-        final index = _characters.indexWhere((c) => c.id == event.character.id);
+        final index = _characters.indexWhere((c) => c.id == event.characterId);
         if(index == -1){
           throw Exception('Character not found');
         }
         final domainCharacter = _characters[index];
-        final updatedCharacter = await _addCharacterToFavorite.call(domainCharacter);
+        final updatedCharacter = domainCharacter.favorite == true ? await _removeCharacterFromFavorite(domainCharacter) : await _addCharacterToFavorite.call(domainCharacter);
         _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
       }catch(e){
         emit(CharactersLoadedError(
@@ -79,28 +78,6 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
             canLoadMore: charState.canLoadMore,
             message: 'Something went wrong: $e',
             isLoading: charState.isLoading
-        ));
-      }
-    }
-  }
-
-  Future<void> _onRemove(RemoveCharacterFromFavoriteEvent event, Emitter<CharactersState> emit) async {
-    if(state is CharactersLoaded){
-      final charState = state as CharactersLoaded;
-      try{
-        final index = _characters.indexWhere((c) => c.id == event.character.id);
-        if(index == -1){
-          throw Exception('Character not found');
-        }
-        final domainCharacter = _characters[index];
-        final updatedCharacter = await _removeCharacterFromFavorite.call(domainCharacter);
-        _eventBus.notifyFavoritesChanged(FavoritesChanged(updatedCharacter));
-      }catch(e){
-        emit(CharactersLoadedError(
-            characters: charState.characters,
-            canLoadMore: charState.canLoadMore,
-            isLoading: charState.isLoading,
-            message: 'Something went wrong: $e'
         ));
       }
     }
@@ -131,8 +108,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
               canLoadMore: charState.canLoadMore,
               isLoading: true
           ));
-          final newCharacters = await _getCharacters.call(
-              page: ++page, limit: limit);
+          final newCharacters = await _getCharacters.call(page: ++page, limit: limit);
           if (newCharacters.isNotEmpty) {
             _characters.addAll(newCharacters);
             emit(CharactersLoaded(
