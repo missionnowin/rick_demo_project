@@ -1,8 +1,4 @@
-import '../models/database/character_database_model.dart';
-
-extension CharacterDatabaseModelFactory on CharacterDatabaseModel {
-
-}
+import 'package:rick_demo_project/data/models/database/character_database_model.dart';
 
 extension CharacterDatabaseModelExtensions on CharacterDatabaseModel {
   Map<String, dynamic> toDatabaseMap() {
