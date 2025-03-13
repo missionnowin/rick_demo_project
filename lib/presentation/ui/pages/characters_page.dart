@@ -27,7 +27,7 @@ class CharactersPage extends StatelessWidget{
             builder: (context, state){
               if(state is CharactersLoaded){
                 return ListView.builder(
-                  itemCount: state.canLoadMore ? state.characters.length : state.characters.length + 1,
+                  itemCount: state.canLoadMore && state.characters.isNotEmpty ? state.characters.length + 2 : state.characters.length,
                   itemBuilder: (context, index){
                     if (index >= state.characters.length - 1 && state.canLoadMore && !state.isLoading) {
                       context.read<CharactersBloc>().add(LoadMoreCharactersEvent());

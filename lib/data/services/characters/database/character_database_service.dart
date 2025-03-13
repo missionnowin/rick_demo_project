@@ -1,7 +1,8 @@
 import 'package:rick_demo_project/data/data_sources/database_client.dart';
+import 'package:rick_demo_project/data/mappers/character_database_mapper.dart';
 import 'package:rick_demo_project/data/models/database/character_database_model.dart';
 
-abstract class DatabaseService {
+abstract class CharacterDatabaseService {
   ///Save character if one not in local database, update otherwise
   Future<void> saveCharacter(CharacterDatabaseModel character);
   ///Trying to remove character by id from database
@@ -12,7 +13,7 @@ abstract class DatabaseService {
   Future<List<CharacterDatabaseModel>> getCharacters({int page = 1, int limit = 20});
 }
 
-class DatabaseServiceImpl implements DatabaseService {
+class DatabaseServiceImpl implements CharacterDatabaseService {
   final DatabaseClient _databaseClient;
 
   DatabaseServiceImpl(this._databaseClient);
@@ -22,9 +23,9 @@ class DatabaseServiceImpl implements DatabaseService {
     final db = _databaseClient.database;
     final query = await db.query('characters', where: 'id = ?', whereArgs: [character.id]);
     if(query.isNotEmpty){
-      await db.update('characters', character.toJson(), where: 'id = ?', whereArgs: [character.id]);
+      await db.update('characters', character.toDatabaseMap(), where: 'id = ?', whereArgs: [character.id]);
     }else{
-      await db.insert('characters', character.toJson());
+      await db.insert('characters', character.toDatabaseMap());
     }
   }
 
@@ -34,7 +35,7 @@ class DatabaseServiceImpl implements DatabaseService {
     final db = _databaseClient.database;
     final query = await db.query('characters', offset: (page - 1) * limit, limit: limit);
     for(Map<String, dynamic> element in query){
-      characters.add(CharacterDatabaseModel.fromJson(element));
+      characters.add(CharacterDatabaseModel.fromDatabaseMap(element));
     }
     return characters;
   }
@@ -50,7 +51,7 @@ class DatabaseServiceImpl implements DatabaseService {
     final db = _databaseClient.database;
     final query = (await db.query('characters', where: 'id = ?', whereArgs: [id])).firstOrNull;
     if(query != null){
-      return CharacterDatabaseModel.fromJson(query);
+      return CharacterDatabaseModel.fromDatabaseMap(query);
     }
     return null;
   }

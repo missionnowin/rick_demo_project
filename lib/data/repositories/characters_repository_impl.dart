@@ -7,10 +7,10 @@ import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/domain/repositories/characters_repository.dart';
 
 class CharactersRepositoryImpl implements CharactersRepository{
-  final NetworkService _networkService;
-  final DatabaseService _databaseService;
+  final CharacterNetworkService _networkService;
+  final CharacterDatabaseService _databaseService;
 
-  CharactersRepositoryImpl({required NetworkService networkService, required DatabaseService databaseService}) : _networkService = networkService, _databaseService = databaseService;
+  CharactersRepositoryImpl({required CharacterNetworkService networkService, required CharacterDatabaseService databaseService}) : _networkService = networkService, _databaseService = databaseService;
 
   @override
   Future<List<CharacterModel>> getCharacters({int page = 1, int limit = 20}) async {
@@ -26,7 +26,7 @@ class CharactersRepositoryImpl implements CharactersRepository{
 
   @override
   Future<List<CharacterModel>> getFavoriteCharacters({int page = 1, int limit = 20}) async {
-    final favoriteDbCharacters = await _databaseService.getCharacters();
+    final favoriteDbCharacters = await _databaseService.getCharacters(page: page, limit: limit);
     return favoriteDbCharacters.map((character) => character.toModel()).toList();
   }
 
@@ -38,5 +38,12 @@ class CharactersRepositoryImpl implements CharactersRepository{
   @override
   Future<void> saveCharacter(CharacterModel character) async {
     await _databaseService.saveCharacter(character.toDatabaseModel());
+  }
+
+  @override
+  Future<CharacterModel> getCharacter({required int id}) async {
+    final character = await _networkService.getCharacter(id: id);
+    final dbCharacter = await _databaseService.getCharacterById(id);
+    return character.toCharacterModel(favorite: dbCharacter == null ? false : true);
   }
 }

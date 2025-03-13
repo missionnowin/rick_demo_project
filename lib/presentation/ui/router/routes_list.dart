@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:rick_demo_project/core/injection/service_locator.dart';
 import 'package:rick_demo_project/presentation/blocs/characters/characters_bloc.dart';
 import 'package:rick_demo_project/presentation/blocs/favorite_characters/favorite_characters_bloc.dart';
+import 'package:rick_demo_project/presentation/blocs/single_character/single_character_bloc.dart';
 import 'package:rick_demo_project/presentation/ui/pages/characters_page.dart';
 import 'package:rick_demo_project/presentation/ui/pages/favorites_page.dart';
+import 'package:rick_demo_project/presentation/ui/pages/single_character_page.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/custom_navigation_bar.dart';
 
 
@@ -35,5 +37,15 @@ final List<RouteBase> routesList = [
           ]
       ),
     ]
-  )
+  ),
+  GoRoute(
+    path: '/character/:id',
+    builder: (context, state) {
+      final characterId = int.parse(state.pathParameters['id']!);
+      return BlocProvider(
+        create: (context) => getIt<SingleCharacterBloc>()..add(FetchSingleCharacterEvent(characterId)),
+        child: SingleCharacterPage(characterId: characterId),
+      );
+    },
+  ),
 ];

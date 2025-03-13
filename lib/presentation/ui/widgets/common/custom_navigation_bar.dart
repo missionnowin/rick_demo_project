@@ -29,19 +29,13 @@ class CustomNavigationBar extends StatelessWidget {
           ),
           child: BottomNavigationBar(
             landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
-            items: <BottomNavigationBarItem>[
+            items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: SvgPicture.asset('assets/svg/home.svg'),
-                ),
                 label: 'Characters',
+                icon: Icon(Icons.people),
               ),
               BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: SvgPicture.asset('assets/svg/favorites.svg',),
-                ),
+                icon: Icon(Icons.favorite),
                 label: 'Favorites',
               ),
             ],

@@ -7,8 +7,8 @@ class RemoveCharacterFromFavorite{
   RemoveCharacterFromFavorite(this._repository);
 
   Future<CharacterModel> call(CharacterModel character) async {
-    final updatedCharacter = character.copyWith(favorite: true);
-    await _repository.saveCharacter(updatedCharacter);
+    final updatedCharacter = character.copyWith(favorite: false);
+    await _repository.removeCharacter(updatedCharacter);
     return updatedCharacter;
   }
 }

@@ -58,6 +58,7 @@ class CharactersBloc extends Bloc<CharactersEvent, CharactersState> {
           isLoading: false
       ));
     }catch(e){
+      print(e);
       emit(CharactersError(message: 'Something went wrong: $e'));
     }
   }

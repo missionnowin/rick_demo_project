@@ -1,4 +1,17 @@
+import 'package:rick_demo_project/domain/entities/character_domain_model.dart';
 import 'package:rick_demo_project/presentation/models/character_presentation_model.dart';
+
+const fakeCharacterModel = [
+  CharacterModel(
+    id: 1,
+    name: 'Rick Sanchez',
+    favorite: true,
+    image: 'https://rickandmortyapi.com/api/character/avatar/1.jpeg',
+    status: 'Alive',
+    species: 'Human',
+    location: 'Earth (C-137)',
+  )
+];
 
 const fakeCharactersList = [
   CharacterPresentationModel(

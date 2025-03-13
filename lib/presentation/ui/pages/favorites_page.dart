@@ -27,13 +27,17 @@ class FavoritesPage extends StatelessWidget{
           builder: (context, state){
             if(state is FavoriteCharactersLoaded){
               return ListView.builder(
-                itemCount: state.canLoadMore ? state.favoriteCharacters.length : state.favoriteCharacters.length + 1,
+                itemCount: state.canLoadMore && state.favoriteCharacters.isNotEmpty ? state.favoriteCharacters.length + 2 : state.favoriteCharacters.length,
                 itemBuilder: (context, index){
                   if (index >= state.favoriteCharacters.length - 1 && state.canLoadMore && !state.isLoading) {
                     context.read<FavoriteCharactersBloc>().add(LoadMoreFavoriteCharactersEvent());
                   }
                   if(index >= state.favoriteCharacters.length){
-                    return Skeletonizer(child: CharacterCard(character: fakeCharactersList.first));
+                    if(state.isLoading){
+                      return Skeletonizer(child: CharacterCard(character: fakeCharactersList.first));
+                    }else{
+                      return Container();
+                    }
                   }
                   return CharacterCard(
                     character: state.favoriteCharacters[index],

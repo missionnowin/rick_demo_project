@@ -51,6 +51,7 @@ dependencies:
   dio_cache_interceptor: ^3.5.1
   skeletonizer: ^1.4.3
   timer_button: ^2.3.1
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
   flutter_test:

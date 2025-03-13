@@ -5,4 +5,5 @@ abstract class CharactersRepository{
   Future<void> saveCharacter(CharacterModel character);
   Future<void> removeCharacter(CharacterModel character);
   Future<List<CharacterModel>> getFavoriteCharacters({int page = 1, int limit = 20});
+  Future<CharacterModel> getCharacter({required int id});
 }

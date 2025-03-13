@@ -6,6 +6,7 @@ extension DomainToDatabaseMapper on CharacterModel{
   CharacterDatabaseModel toDatabaseModel(){
     return CharacterDatabaseModel(
       id: id,
+      name: name,
       favorite: favorite,
       status: status,
       species: species,
@@ -25,6 +26,7 @@ extension DatabaseToDomainMapper on CharacterDatabaseModel{
   CharacterModel toModel(){
     return CharacterModel(
       id: id,
+      name: name,
       favorite: favorite,
       status: status,
       species: species,

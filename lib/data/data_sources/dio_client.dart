@@ -1,24 +1,48 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
-import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DioClient {
   final Dio _dio;
+  final SharedPreferences _prefs;
 
-  DioClient() : _dio = Dio() {
+  DioClient(this._prefs) : _dio = Dio() {
     _dio.options.connectTimeout = const Duration(seconds: 20);
     _dio.options.baseUrl = 'https://rickandmortyapi.com/api/';
 
-    final cacheOptions = CacheOptions(
-      store: MemCacheStore(),
-      policy: CachePolicy.request,
-      hitCacheOnErrorExcept: const [401, 403],
-      maxStale: const Duration(days: 7),
-      priority: CachePriority.normal,
-      cipher: null,
-      keyBuilder: CacheOptions.defaultCacheKeyBuilder,
-      allowPostMethod: false,
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onResponse: (response, handler) async {
+          await _cacheResponse(response.requestOptions.uri.toString(), response.data);
+          return handler.next(response);
+        },
+        onError: (error, handler) async {
+          try{
+            final cachedResponse = await _getCachedResponse(error.requestOptions.uri.toString());
+            if (cachedResponse != null) {
+              return handler.resolve(Response(
+                requestOptions: error.requestOptions,
+                data: cachedResponse,
+                statusCode: 200,
+              ));
+            }
+            return handler.next(error);
+          }catch(e){
+            rethrow;
+          }
+        },
+      ),
     );
-    _dio.interceptors.add(DioCacheInterceptor(options: cacheOptions));
+  }
+
+  Future<Map<String, dynamic>?> _getCachedResponse(String url) async {
+    return jsonDecode(_prefs.getString(url) ?? '');
+  }
+
+  Future<void> _cacheResponse(String url, dynamic data) async {
+    final jsonString = jsonEncode(data); // Serialize data to JSON string
+    await _prefs.setString(url, jsonString);
   }
 
   Dio get dio => _dio;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rick_demo_project/presentation/models/character_presentation_model.dart';
 
 class CharacterCard extends StatelessWidget {
@@ -21,22 +22,28 @@ class CharacterCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
-            child: CachedNetworkImage(
-              imageUrl: character.image ?? 'https://via.placeholder.com/150',
-              height: 150,
-              width: double.infinity,
-              fit: BoxFit.cover,
-              placeholder: (context, url) => Container(
+          GestureDetector(
+            onTap: (){
+              context.push('/character/${character.id}');
+            },
+            behavior: HitTestBehavior.opaque,
+            child: ClipRRect(
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+              child: CachedNetworkImage(
+                imageUrl: character.image ?? 'https://via.placeholder.com/150',
                 height: 150,
-                color: Colors.grey[300],
-                child: const Center(child: CircularProgressIndicator()),
-              ),
-              errorWidget: (context, url, error) => Container(
-                height: 150,
-                color: Colors.grey[300],
-                child: const Icon(Icons.error, color: Colors.red),
+                width: double.infinity,
+                fit: BoxFit.cover,
+                placeholder: (context, url) => Container(
+                  height: 150,
+                  color: Colors.grey[300],
+                  child: const Center(child: CircularProgressIndicator()),
+                ),
+                errorWidget: (context, url, error) => Container(
+                  height: 150,
+                  color: Colors.grey[300],
+                  child: const Icon(Icons.error, color: Colors.red),
+                ),
               ),
             ),
           ),
@@ -59,7 +66,7 @@ class CharacterCard extends StatelessWidget {
                     const Spacer(),
                     GestureDetector(
                       onTap: (){
-                        if(character.favorite == true && onAdd != null){
+                        if(character.favorite != true && onAdd != null){
                           onAdd!();
                         }else if(onRemove != null){
                           onRemove!();
