@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rick_demo_project/presentation/models/character_card_presentation_model.dart';
+import 'package:rick_demo_project/data/models/presentation/character_card_presentation_model.dart';
 
 class CharacterCard extends StatelessWidget {
   final CharacterCardPresentationModel character;

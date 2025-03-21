@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:rick_demo_project/core/utils/fake_characters_list.dart';
-import 'package:rick_demo_project/presentation/models/character_card_presentation_model.dart';
+import 'package:rick_demo_project/data/models/presentation/character_card_presentation_model.dart';
 import 'package:rick_demo_project/presentation/ui/widgets/common/character_card.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
